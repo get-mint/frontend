@@ -1,146 +1,115 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+
+const springTransition = {
+  type: "spring",
+  stiffness: 100,
+  damping: 20,
+};
 
 const features = [
   {
-    name: "Instant Cash Back",
-    description: "Get your money instantly. No waiting periods, no minimum thresholds. Your cash is ready when you are.",
-    metric: "50%",
-    metricLabel: "commission split",
-    gradient: "from-primary to-primary/60",
+    icon: "💸",
+    title: "Instant Cash Back",
+    description: "Get your money instantly. No waiting periods, no minimum thresholds.",
+    stats: ["50%", "commission split"],
   },
   {
-    name: "Shop Anywhere",
-    description: "Works with thousands of online stores, from big retailers to boutique shops. If you can shop there, you can earn there.",
-    metric: "5000+",
-    metricLabel: "partner stores",
-    gradient: "from-primary to-primary/60",
+    icon: "🌐",
+    title: "Universal Coverage",
+    description: "Works with all major online retailers and thousands of others.",
+    stats: ["5000+", "partner stores"],
   },
   {
-    name: "Zero Hassle",
-    description: "No codes to enter, no receipts to upload. Our extension automatically applies the best available cashback rate.",
-    metric: "100%",
-    metricLabel: "automated",
-    gradient: "from-primary to-primary/60",
+    icon: "🤖",
+    title: "Smart Detection",
+    description: "Automatically finds and applies the best cash back rates.",
+    stats: ["100%", "automated"],
   },
   {
-    name: "Real Money",
-    description: "No points systems, no gift cards. Get paid in real cash through PayPal, Venmo, or direct deposit.",
-    metric: "$$$",
-    metricLabel: "real cash",
-    gradient: "from-primary to-primary/60",
+    icon: "💰",
+    title: "Real Cash",
+    description: "Get real money, not points or gift cards. It's your money, after all.",
+    stats: ["$0", "minimum payout"],
   },
 ];
 
 export function Features() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
-
   return (
-    <section ref={containerRef} className="relative py-32 overflow-hidden">
-      <div className="container mx-auto px-4">
-        {/* Header with consistent typography */}
+    <section className="relative py-32 bg-dark-500 overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-grid opacity-5" />
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
+        style={{
+          background: "radial-gradient(circle, rgba(0,224,143,0.1) 0%, rgba(0,224,143,0) 70%)",
+        }}
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      <div className="container relative z-10 mx-auto px-4">
         <motion.div
-          style={{ y }}
-          className="max-w-[980px] mx-auto text-center mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
         >
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl font-bold text-gray-900 mb-6"
-          >
-            Features
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl text-gray-600"
-          >
-            Every feature is crafted to make earning cash back effortless.
-          </motion.p>
+          <h2 className="text-5xl font-bold text-white mb-6">
+            Features that set us apart
+          </h2>
+          <p className="text-xl text-gray-400">
+            Everything you need to maximize your cash back
+          </p>
         </motion.div>
 
-        {/* Features grid with Mint colors */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[1072px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {features.map((feature, index) => (
             <motion.div
-              key={feature.name}
-              initial={{ opacity: 0, y: 20 }}
+              key={feature.title}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ ...springTransition, delay: index * 0.1 }}
+              whileHover={{ 
+                y: -8,
+                transition: springTransition
+              }}
               className="group relative"
             >
-              {/* Card with Mint gradient */}
-              <div className="relative h-full overflow-hidden rounded-2xl bg-white shadow-sm transition duration-300 hover:shadow-lg">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                
-                {/* Content */}
-                <div className="relative p-8">
-                  <div className="space-y-4">
-                    <h3 className="text-2xl font-bold text-gray-900">
-                      {feature.name}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-
-                  {/* Metric with Mint colors */}
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-bold text-primary">
-                        {feature.metric}
-                      </span>
-                      <span className="text-gray-500 text-sm">
-                        {feature.metricLabel}
-                      </span>
-                    </div>
-                  </div>
+              <div className="absolute inset-0 bg-dark-400 rounded-2xl transform transition-all duration-300 group-hover:scale-[1.02] group-hover:bg-dark-300" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 rounded-2xl transition-opacity duration-300 group-hover:opacity-100" />
+              
+              <div className="relative p-8">
+                <div className="text-4xl mb-6">{feature.icon}</div>
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400 mb-6 leading-relaxed">
+                  {feature.description}
+                </p>
+                <div className="flex items-baseline space-x-2">
+                  <span className="text-3xl font-bold text-primary">
+                    {feature.stats[0]}
+                  </span>
+                  <span className="text-gray-500">{feature.stats[1]}</span>
                 </div>
-
-                {/* Decorative gradient line */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-primary/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                
+                {/* Glowing border effect */}
+                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary/60 via-primary to-primary/60 opacity-0 transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
               </div>
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom CTA - Mint style */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-20"
-        >
-          <a
-            href="#"
-            className="inline-flex items-center text-lg text-primary hover:text-primary/80 transition-colors"
-          >
-            <span>Learn more about Mint features</span>
-            <svg
-              className="w-5 h-5 ml-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </a>
-        </motion.div>
       </div>
     </section>
   );

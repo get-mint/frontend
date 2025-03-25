@@ -1,121 +1,132 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import { Check, X } from 'lucide-react';
 
-const comparisonData = [
+const features = [
   {
-    feature: 'Cash rewards',
+    name: "Instant Cash Back",
     mint: true,
     others: false,
-    description: 'Get real cash, not points or gift cards',
   },
   {
-    feature: 'Student-focused',
+    name: "No Minimum Payout",
     mint: true,
     others: false,
-    description: 'Built specifically for student needs',
   },
   {
-    feature: '50/50+ commission split',
+    name: "Automatic Detection",
     mint: true,
     others: false,
-    description: 'We share at least half of every commission',
   },
   {
-    feature: 'Instant payouts',
+    name: "Universal Coverage",
     mint: true,
     others: false,
-    description: 'No waiting periods or minimum thresholds',
   },
   {
-    feature: 'Transparent earnings',
+    name: "Real Cash (Not Points)",
     mint: true,
     others: false,
-    description: 'See exactly how much you earn from each purchase',
+  },
+  {
+    name: "Zero Waiting Period",
+    mint: true,
+    others: false,
   },
 ];
 
 export function Comparison() {
   return (
-    <section className="relative pt-24 pb-32 min-h-[800px] overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(76,217,100,0.1),rgba(255,255,255,0))]" />
+    <section className="relative py-32 bg-dark-400 overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-grid opacity-5" />
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
+        style={{
+          background: "radial-gradient(circle, rgba(0,224,143,0.05) 0%, rgba(0,224,143,0) 70%)",
+        }}
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
 
       <div className="container relative z-10 mx-auto px-4">
-        <div className="mx-auto max-w-2xl lg:text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-base font-semibold leading-7 text-primary">
-              Comparison
-            </h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Why choose Mint?
-            </p>
-            <p className="mt-6 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
-              Traditional cashback and rewards programs keep most of the money for themselves.
-              We believe in sharing the wealth with our users.
-            </p>
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
+        >
+          <h2 className="text-5xl font-bold text-white mb-6">
+            The Mint Difference
+          </h2>
+          <p className="text-xl text-gray-400">
+            See how we compare to traditional cash back services
+          </p>
+        </motion.div>
 
-        <div className="mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="mt-12 rounded-2xl bg-white shadow-xl border border-gray-100"
-          >
-            {/* Table header */}
-            <div className="grid grid-cols-3 gap-x-8 p-8 text-lg font-semibold text-gray-900 border-b border-gray-100">
-              <div>Feature</div>
-              <div className="text-center text-primary">Mint</div>
-              <div className="text-center text-amber-500">Others</div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto"
+        >
+          <div className="relative">
+            {/* Glowing border */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 rounded-2xl blur-lg opacity-25" />
+            
+            {/* Main content */}
+            <div className="relative bg-dark-500 rounded-xl p-8 backdrop-blur-sm">
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                <div className="text-left text-lg font-medium text-gray-400">Features</div>
+                <div className="text-center text-lg font-medium text-primary">Mint</div>
+                <div className="text-center text-lg font-medium text-amber-500">Others</div>
+              </div>
+
+              <div className="space-y-6">
+                {features.map((feature, index) => (
+                  <motion.div
+                    key={feature.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="grid grid-cols-3 gap-4 items-center group"
+                  >
+                    <div className="text-left text-gray-300 group-hover:text-white transition-colors">
+                      {feature.name}
+                    </div>
+                    <div className="flex justify-center">
+                      <motion.div
+                        whileHover={{ scale: 1.2 }}
+                        className="w-6 h-6 text-primary"
+                      >
+                        {feature.mint ? <Check size={24} /> : <X size={24} />}
+                      </motion.div>
+                    </div>
+                    <div className="flex justify-center">
+                      <motion.div
+                        whileHover={{ scale: 1.2 }}
+                        className="w-6 h-6 text-gray-400"
+                      >
+                        {feature.others ? <Check size={24} /> : <X size={24} />}
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-
-            {/* Table body */}
-            <div className="divide-y divide-gray-100">
-              {comparisonData.map((item, index) => (
-                <motion.div
-                  key={item.feature}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="grid grid-cols-3 gap-x-8 p-8 hover:bg-gray-50 transition-colors"
-                >
-                  <div>
-                    <div className="font-medium text-gray-900">{item.feature}</div>
-                    <div className="mt-2 text-sm text-gray-500 leading-relaxed">{item.description}</div>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    {item.mint ? <Check className="h-6 w-6 text-primary" /> : <X className="h-6 w-6 text-gray-400" />}
-                  </div>
-                  <div className="flex justify-center items-center">
-                    {item.others ? <Check className="h-6 w-6 text-primary" /> : <X className="h-6 w-6 text-gray-400" />}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-16 text-center"
-          >
-            <a
-              href="#download"
-              className="inline-flex items-center px-8 py-4 rounded-full bg-primary text-white font-semibold hover:bg-primary-600 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-primary/25"
-            >
-              Start Earning Now
-            </a>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
