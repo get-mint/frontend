@@ -18,11 +18,11 @@ export function Logo() {
         </Link>
 
         <div className="flex items-center space-x-8">
-          <Link href="#features" className="text-primary hover:text-primary-600 transition-colors">
-            Features
-          </Link>
           <Link href="#how-it-works" className="text-primary hover:text-primary-600 transition-colors">
             How it Works
+          </Link>
+          <Link href="#features" className="text-primary hover:text-primary-600 transition-colors">
+            Features
           </Link>
           <Link href="#comparison" className="text-primary hover:text-primary-600 transition-colors">
             Compare

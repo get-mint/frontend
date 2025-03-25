@@ -23,7 +23,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="relative py-16 overflow-hidden">
+    <section id="how-it-works" className="relative py-16 overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -43,7 +43,7 @@ export function HowItWorks() {
           {/* Connecting line */}
           <div className="absolute top-1/2 left-4 right-4 h-0.5 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 -translate-y-1/2 hidden md:block" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
             {steps.map((step, index) => (
               <motion.div
                 key={step.title}
@@ -55,14 +55,14 @@ export function HowItWorks() {
                 <div className="flex flex-col items-center">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
-                    className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 relative z-10"
+                    className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6"
                   >
                     <step.icon className="h-8 w-8 text-primary" />
                   </motion.div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
                     {step.title}
                   </h3>
-                  <p className="text-gray-600 text-center max-w-xs">
+                  <p className="text-gray-600 text-center">
                     {step.description}
                   </p>
                 </div>
