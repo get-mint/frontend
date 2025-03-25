@@ -38,7 +38,7 @@ const comparisonData = [
 
 export function Comparison() {
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-white via-gray-50 to-mint-light/10 py-24">
+    <section className="relative pt-24 pb-32 min-h-[800px] overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(76,217,100,0.1),rgba(255,255,255,0))]" />
 
@@ -67,7 +67,7 @@ export function Comparison() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="mt-16 rounded-3xl bg-white shadow-xl border border-gray-100"
+            className="mt-12 rounded-2xl bg-white shadow-xl border border-gray-100"
           >
             {/* Table header */}
             <div className="grid grid-cols-3 gap-x-8 p-8 text-lg font-semibold text-gray-900 border-b border-gray-100">
@@ -88,7 +88,7 @@ export function Comparison() {
                 >
                   <div>
                     <div className="font-medium text-gray-900">{item.feature}</div>
-                    <div className="mt-1 text-sm text-gray-500">{item.description}</div>
+                    <div className="mt-2 text-sm text-gray-500 leading-relaxed">{item.description}</div>
                   </div>
                   <div className="flex justify-center items-center">
                     <Check className="h-6 w-6 text-primary" />

@@ -49,7 +49,7 @@ export function Features() {
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen bg-gradient-to-br from-gray-50 via-white to-mint-light/10 py-24 overflow-hidden">
+    <section ref={containerRef} className="relative pb-48 pt-4 min-h-[800px] overflow-hidden">
       {/* Parallax background */}
       <motion.div
         className="absolute inset-0 opacity-20"
@@ -68,7 +68,7 @@ export function Features() {
         style={{ y: contentY, opacity }}
         className="container relative z-10 mx-auto px-4"
       >
-        <div className="mx-auto max-w-2xl lg:text-center mb-16">
+        <div className="mx-auto max-w-2xl lg:text-center mb-8">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -95,24 +95,24 @@ export function Features() {
           </motion.p>
         </div>
 
-        <div className="mx-auto mt-16 max-w-5xl">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-8 max-w-6xl px-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="relative p-8 bg-white rounded-2xl shadow-lg border border-gray-100 group hover:shadow-xl transition-all duration-300"
+                whileHover={{ scale: 1.02, y: -2 }}
+                className="relative p-6 bg-white rounded-xl shadow-lg border border-gray-100 group hover:shadow-xl transition-all duration-300"
               >
-                <div className="absolute -inset-px bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity" />
-                <div className="relative">
+                <div className="absolute -inset-px bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 rounded-xl transition-opacity" />
+                <div className="relative space-y-3">
                   <div className="p-3 rounded-xl bg-primary/10 w-fit group-hover:bg-primary/20 transition-colors">
                     <feature.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="mt-4 text-xl font-semibold text-gray-900">{feature.name}</h3>
-                  <p className="mt-2 text-gray-600">{feature.description}</p>
+                  <h3 className="text-xl font-semibold text-gray-900">{feature.name}</h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
