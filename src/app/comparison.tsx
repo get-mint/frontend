@@ -74,15 +74,15 @@ export function Comparison() {
                       </td>
                       <td className={`border-r p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
                         <div className="flex justify-center">
-                          <div className="w-4 h-4 text-primary">
-                            {feature.mint ? <Check size={16} /> : <Minus size={16} />}
+                          <div className="w-5 h-5 text-emerald-400 drop-shadow-[0_0_3px_rgba(52,211,153,0.7)]">
+                            {feature.mint ? <Check size={18} /> : <Minus size={18} />}
                           </div>
                         </div>
                       </td>
                       <td className={`p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
                         <div className="flex justify-center">
-                          <div className="w-4 h-4 text-muted-foreground">
-                            {feature.others ? <Check size={16} /> : <X size={16} />}
+                          <div className="w-5 h-5 text-muted-foreground">
+                            {feature.others ? <Check size={18} /> : <X size={18} />}
                           </div>
                         </div>
                       </td>
