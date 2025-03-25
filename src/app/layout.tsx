@@ -14,8 +14,8 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "Next Supa Shad Boilerplate",
-  description: "A boilerplate for Next.js with Supabase and Shadcn/UI",
+  title: "Mint",
+  description: "It's your money, we help you grab it.",
 };
 
 export default function RootLayout({
