@@ -7,33 +7,36 @@ import { HowItWorks } from '@/components/landing/HowItWorks';
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-white">
+    <main className="relative min-h-screen bg-[#fbfbfd]">
       {/* Fixed navigation */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-[#fbfbfd]/80 backdrop-blur-xl border-b border-gray-200/50">
         <Logo />
       </div>
 
       {/* Content */}
       <div className="relative">
-        {/* Diagonal sections with overlapping edges */}
-        <section className="relative">
+        {/* Hero section with full-height design */}
+        <section className="relative min-h-screen">
           <Hero />
         </section>
 
-        <section className="relative -mt-32 pt-32 bg-gradient-to-br from-primary/5 to-white skew-y-3">
-          <div className="-skew-y-3">
+        {/* How It Works with subtle background */}
+        <section className="relative bg-white py-32">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#fbfbfd] to-white" />
+          <div className="relative">
             <HowItWorks />
           </div>
         </section>
 
-        <section className="relative -mt-32 pt-32 bg-gray-50 -skew-y-3">
-          <div className="skew-y-3">
-            <Features />
-          </div>
+        {/* Features with Apple-style cards */}
+        <section className="relative bg-[#fbfbfd] py-32">
+          <Features />
         </section>
 
-        <section className="relative -mt-32 pt-32 bg-white skew-y-3">
-          <div className="-skew-y-3">
+        {/* Comparison with clean design */}
+        <section className="relative bg-white py-32">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#fbfbfd] to-white" />
+          <div className="relative">
             <Comparison />
           </div>
         </section>
