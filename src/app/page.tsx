@@ -7,12 +7,10 @@ import { Comparison } from "./comparison";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-background">
-      <div className="relative">
-        <section className="relative min-h-screen">
-          <Hero />
-        </section>
+    <>
+      <Hero />
 
+      <div className="relative">
         <section className="relative bg-card py-32">
           <div className="absolute inset-0 bg-gradient-to-b from-background to-card" />
           <div className="relative">
@@ -31,6 +29,6 @@ export default function Home() {
           </div>
         </section>
       </div>
-    </main>
+    </>
   );
 }
