@@ -1,7 +1,5 @@
 import { Check, X, Minus } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
-
 const comparisonFeatures = [
   {
     name: "Instant Cash Back",
@@ -52,51 +50,47 @@ export function Comparison() {
         <div className="max-w-4xl mx-auto">
           <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 rounded-2xl blur-lg opacity-25" />
-
-            <Card className="relative backdrop-blur-sm">
-              <CardContent className="p-8">
-                <div className="border rounded-lg overflow-hidden">
-                  <table className="w-full">
-                    <thead>
-                      <tr>
-                        <th className="border-b border-r p-4 text-left text-lg font-medium text-muted-foreground bg-muted/50">
-                          Features
-                        </th>
-                        <th className="border-b border-r p-4 text-center text-lg font-medium text-primary bg-muted/50">
-                          Mint
-                        </th>
-                        <th className="border-b p-4 text-center text-lg font-medium text-amber-500 bg-muted/50">
-                          Others
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {comparisonFeatures.map((feature, index) => (
-                        <tr key={feature.name}>
-                          <td className={`border-r p-4 text-muted-foreground ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
-                            {feature.name}
-                          </td>
-                          <td className={`border-r p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
-                            <div className="flex justify-center">
-                              <div className="w-6 h-6 text-primary">
-                                {feature.mint ? <Check size={24} /> : <Minus size={24} />}
-                              </div>
-                            </div>
-                          </td>
-                          <td className={`p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
-                            <div className="flex justify-center">
-                              <div className="w-6 h-6 text-muted-foreground">
-                                {feature.others ? <Check size={24} /> : <X size={24} />}
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </CardContent>
-            </Card>
+            
+            <div className="relative bg-background border rounded-lg overflow-hidden shadow-sm">
+              <table className="w-full">
+                <thead>
+                  <tr>
+                    <th className="border-b border-r p-6 text-left text-lg font-medium text-muted-foreground bg-muted/50 w-[70%]">
+                      Features
+                    </th>
+                    <th className="border-b border-r p-4 text-center text-lg font-medium text-primary bg-muted/50 w-[15%]">
+                      Mint
+                    </th>
+                    <th className="border-b p-4 text-center text-lg font-medium text-amber-500 bg-muted/50 w-[15%]">
+                      Others
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonFeatures.map((feature, index) => (
+                    <tr key={feature.name}>
+                      <td className={`border-r p-6 text-muted-foreground ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                        {feature.name}
+                      </td>
+                      <td className={`border-r p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                        <div className="flex justify-center">
+                          <div className="w-4 h-4 text-primary">
+                            {feature.mint ? <Check size={16} /> : <Minus size={16} />}
+                          </div>
+                        </div>
+                      </td>
+                      <td className={`p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                        <div className="flex justify-center">
+                          <div className="w-4 h-4 text-muted-foreground">
+                            {feature.others ? <Check size={16} /> : <X size={16} />}
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
