@@ -33,7 +33,7 @@ const features = [
 
 export function Features() {
   return (
-    <section className="relative py-32 bg-muted overflow-hidden">
+    <section className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-5" />
       <div className="container relative z-10 mx-auto px-4">
         <div className="text-center mb-20">
