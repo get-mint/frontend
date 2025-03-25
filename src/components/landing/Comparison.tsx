@@ -73,7 +73,7 @@ export function Comparison() {
             <div className="grid grid-cols-3 gap-x-8 p-8 text-lg font-semibold text-gray-900 border-b border-gray-100">
               <div>Feature</div>
               <div className="text-center text-primary">Mint</div>
-              <div className="text-center text-gray-400">Others</div>
+              <div className="text-center text-amber-500">Others</div>
             </div>
 
             {/* Table body */}
