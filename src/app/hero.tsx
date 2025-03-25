@@ -62,10 +62,8 @@ function ParticleField() {
 
 export function Hero() {
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-x-hidden">
+    <div className="relative min-h-screen flex items-center justify-center">
       <div className="absolute inset-0 from-background to-muted">
-        <ParticleField />
-
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -84,9 +82,7 @@ export function Hero() {
         <div className="max-w-6xl mx-auto text-center">
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <h1 className="text-5xl md:text-8xl font-bold flex flex-col gap-0">
-              <span className="text-foreground">
-                It's your money,
-              </span>
+              <span className="text-foreground">It's your money,</span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/80 pb-2">
                 we help you grab it.
               </span>
@@ -100,11 +96,13 @@ export function Hero() {
                 </div>
               </Button>
 
-              <Button 
-                className="rounded-full py-7 text-lg" 
+              <Button
+                className="rounded-full py-7 text-lg"
                 variant="outline"
                 onClick={() => {
-                  document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+                  document
+                    .getElementById("how-it-works")
+                    ?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
                 <div className="flex flex-row gap-2 items-center">

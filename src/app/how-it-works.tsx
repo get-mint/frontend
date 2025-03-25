@@ -45,7 +45,7 @@ export function HowItWorks() {
           </p>
         </div>
 
-        <div className="relative max-w-7xl mx-auto">
+        <div className="relative max-w-5xl mx-auto">
           <div className="relative grid grid-cols-1 gap-16">
             {steps.map((step, index) => (
               <div key={step.title} className="relative">
@@ -66,9 +66,6 @@ export function HowItWorks() {
                         {index + 1}
                       </span>
                     </div>
-                    {index < steps.length - 1 && (
-                      <div className="absolute top-full left-1/2 w-px h-16 bg-gradient-to-b from-primary/20 to-transparent" />
-                    )}
                   </div>
 
                   <div className="flex-1 relative group">

@@ -1,5 +1,7 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { Banknote, Globe2, Bot, DollarSign } from "lucide-react";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const features = [
   {
@@ -33,10 +35,15 @@ const features = [
 
 export function Features() {
   return (
-    <section className="relative py-16 overflow-hidden">
-      <div className="absolute inset-0 bg-grid opacity-5" />
+    <section className="relative py-16 overflow-hidden">      
       <div className="container relative z-10 mx-auto px-4">
-        <div className="text-center mb-20">
+        <div className="text-center mb-16">
+          <Badge
+            variant="outline"
+            className="mb-3 text-lg rounded-full px-4 border-primary/50 bg-primary/10"
+          >
+            Features
+          </Badge>
           <h2 className="text-5xl font-bold text-foreground mb-6">
             Features that set us apart
           </h2>
