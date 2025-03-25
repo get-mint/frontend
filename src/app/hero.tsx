@@ -80,7 +80,7 @@ export function Hero() {
         />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6">
         <div className="max-w-6xl mx-auto text-center">
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <h1 className="text-5xl md:text-8xl font-bold">
@@ -93,21 +93,18 @@ export function Hero() {
               </span>
             </h1>
 
-            <div className="flex flex-row gap-3 mb-6 justify-center px-4 sm:px-0">
-              <Button
-                size="lg"
-                className="rounded-full py-7 text-lg sm:text-xl"
-              >
+            <div className="flex flex-row gap-2 sm:gap-3 mb-6 justify-center">
+              <Button size="lg" className="rounded-full py-7 text-lg">
                 <div className="flex flex-row gap-2 items-center">
-                  Install Mint for Chrome
+                  <span className="hidden sm:inline">
+                    Install Mint for Chrome
+                  </span>
+                  <span className="sm:hidden">Install Mint</span>
                   <Leaf className="size-6" />
                 </div>
               </Button>
 
-              <Button
-                className="rounded-full py-7 text-lg sm:text-xl"
-                variant="outline"
-              >
+              <Button className="rounded-full py-7 text-lg" variant="outline">
                 <div className="flex flex-row gap-2 items-center">
                   Learn More
                   <ArrowRight className="size-6" />
