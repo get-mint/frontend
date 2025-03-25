@@ -1,18 +1,36 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Download } from 'lucide-react';
+import { Download, DollarSign, Coins, CreditCard, ShoppingBag } from 'lucide-react';
+import { useRef } from 'react';
 
 export function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  const floatingIcons = [
+    { icon: DollarSign, delay: 0 },
+    { icon: Coins, delay: 0.2 },
+    { icon: CreditCard, delay: 0.4 },
+    { icon: ShoppingBag, delay: 0.6 },
+  ];
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-black to-primary-900">
-      {/* Animated background elements */}
+    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-mint-light/10 to-primary/10">
+      {/* Floating elements */}
       <div className="absolute inset-0 overflow-hidden">
+        {/* Animated circles */}
         {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute bg-primary-500/10 rounded-full"
+            className="absolute bg-primary/10 rounded-full"
             style={{
               width: Math.random() * 300 + 50,
               height: Math.random() * 300 + 50,
@@ -21,7 +39,9 @@ export function Hero() {
             }}
             animate={{
               y: [0, Math.random() * 100 - 50],
+              x: [0, Math.random() * 100 - 50],
               opacity: [0.1, 0.3, 0.1],
+              scale: [1, 1.2, 1],
             }}
             transition={{
               duration: Math.random() * 5 + 5,
@@ -30,35 +50,63 @@ export function Hero() {
             }}
           />
         ))}
+
+        {/* Floating icons */}
+        {floatingIcons.map((item, index) => (
+          <motion.div
+            key={index}
+            className="absolute"
+            style={{
+              left: `${25 * (index + 1)}%`,
+              top: '20%',
+            }}
+            animate={{
+              y: [0, -30, 0],
+              rotate: [0, 10, -10, 0],
+            }}
+            transition={{
+              duration: 4,
+              delay: item.delay,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+          >
+            <item.icon className="h-8 w-8 text-primary/40" />
+          </motion.div>
+        ))}
       </div>
 
       {/* Content */}
-      <div className="container relative z-10 mx-auto px-4 text-center">
+      <motion.div
+        style={{ y, opacity }}
+        className="container relative z-10 mx-auto px-4 text-center"
+      >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="space-y-6"
         >
-          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white to-primary-200 bg-clip-text text-transparent">
-            Shop like normal.
+          <h1 className="text-5xl md:text-7xl font-bold text-gray-900">
+            It's your money.
             <br />
-            Get paid like never before.
+            We just help you grab it.
           </h1>
           
-          <p className="text-xl md:text-2xl text-primary-100/80 max-w-3xl mx-auto">
-            Turn your everyday online shopping into real cash. 
-            Get 50% of the commission, straight to your wallet.
+          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+            Turn shopping into cash — instantly.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
-            <Button size="lg" className="bg-primary-500 hover:bg-primary-600 text-black font-semibold px-8 h-14">
-              <Download className="mr-2 h-5 w-5" />
-              Download Extension
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+            Mint is the browser extension that pays you real money every time you shop online. 
+            We split the commission 50/50 — no points, no gift cards, just straight-up cash to your wallet.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
+            <Button size="lg" className="bg-primary hover:bg-primary-600 text-white font-semibold px-8 h-14 rounded-full group transition-all duration-300 hover:scale-105">
+              <Download className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+              Download Mint Extension — Get Paid to Shop
             </Button>
-            <span className="text-primary-100/60">
-              Available for Chrome, Firefox & Safari
-            </span>
           </div>
 
           {/* Stats */}
@@ -69,18 +117,18 @@ export function Hero() {
             className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto"
           >
             {[
-              { value: "1M+", label: "Active Users" },
-              { value: "$500K+", label: "Paid Out" },
-              { value: "1000+", label: "Partner Brands" },
+              { value: "50%", label: "Commission Split" },
+              { value: "Instant", label: "Cash Payouts" },
+              { value: "1000+", label: "Partner Stores" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-primary-400">{stat.value}</div>
-                <div className="text-primary-100/60 mt-1">{stat.label}</div>
+                <div className="text-3xl md:text-4xl font-bold text-primary">{stat.value}</div>
+                <div className="text-gray-500 mt-1">{stat.label}</div>
               </div>
             ))}
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div
@@ -88,9 +136,9 @@ export function Hero() {
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 1.5, repeat: Infinity }}
       >
-        <div className="w-6 h-10 border-2 border-primary-400/50 rounded-full flex justify-center">
+        <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center">
           <motion.div
-            className="w-1 h-2 bg-primary-400 rounded-full mt-2"
+            className="w-1 h-2 bg-primary rounded-full mt-2"
             animate={{ y: [0, 16, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           />

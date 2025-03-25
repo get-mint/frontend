@@ -6,7 +6,7 @@ import { Logo } from '@/components/landing/Logo';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-white">
       <Logo />
       <div id="hero">
         <Hero />

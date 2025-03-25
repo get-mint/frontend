@@ -44,23 +44,28 @@ export function Features() {
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen bg-black py-24 overflow-hidden">
+    <section ref={containerRef} className="relative min-h-screen bg-gradient-to-br from-gray-50 via-white to-mint-light/10 py-24 overflow-hidden">
       {/* Parallax background */}
       <motion.div
         className="absolute inset-0 opacity-20"
         style={{
-          backgroundImage: "radial-gradient(circle at center, #00D6A3 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-          y,
+          backgroundImage: `
+            radial-gradient(circle at 20% 20%, #4CD964 1px, transparent 1px),
+            radial-gradient(circle at 60% 40%, #4CD964 1px, transparent 1px),
+            radial-gradient(circle at 80% 60%, #4CD964 1px, transparent 1px)
+          `,
+          backgroundSize: "80px 80px, 60px 60px, 40px 40px",
+          y: backgroundY,
         }}
       />
 
       <motion.div
-        style={{ opacity }}
+        style={{ y: contentY, opacity }}
         className="container relative z-10 mx-auto px-4"
       >
         <div className="mx-auto max-w-2xl lg:text-center mb-16">
@@ -68,7 +73,7 @@ export function Features() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-base font-semibold leading-7 text-primary-500"
+            className="text-base font-semibold leading-7 text-primary"
           >
             How It Works
           </motion.h2>
@@ -76,15 +81,15 @@ export function Features() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl"
+            className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
           >
-            Everything you need, nothing you don't
+            Shopping that pays you back
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 text-lg leading-8 text-gray-300"
+            className="mt-6 text-lg leading-8 text-gray-600"
           >
             No points to track. No coupons to clip. Just install the extension and start earning real cash on your everyday shopping.
           </motion.p>
@@ -98,13 +103,16 @@ export function Features() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative p-8 bg-primary-900/40 rounded-2xl backdrop-blur-sm border border-primary-500/10 group hover:bg-primary-900/60 transition-colors"
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="relative p-8 bg-white rounded-2xl shadow-lg border border-gray-100 group hover:shadow-xl transition-all duration-300"
               >
-                <div className="absolute -inset-px bg-gradient-to-r from-primary-500/20 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity" />
+                <div className="absolute -inset-px bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity" />
                 <div className="relative">
-                  <feature.icon className="h-8 w-8 text-primary-500" />
-                  <h3 className="mt-4 text-xl font-semibold text-white">{feature.name}</h3>
-                  <p className="mt-2 text-gray-300">{feature.description}</p>
+                  <div className="p-3 rounded-xl bg-primary/10 w-fit group-hover:bg-primary/20 transition-colors">
+                    <feature.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="mt-4 text-xl font-semibold text-gray-900">{feature.name}</h3>
+                  <p className="mt-2 text-gray-600">{feature.description}</p>
                 </div>
               </motion.div>
             ))}

@@ -38,9 +38,9 @@ const comparisonData = [
 
 export function Comparison() {
   return (
-    <section className="relative min-h-screen bg-black py-24">
+    <section className="relative min-h-screen bg-gradient-to-br from-white via-gray-50 to-mint-light/10 py-24">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary-900/20 to-black" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(76,217,100,0.1),rgba(255,255,255,0))]" />
 
       <div className="container relative z-10 mx-auto px-4">
         <div className="mx-auto max-w-2xl lg:text-center mb-16">
@@ -49,13 +49,13 @@ export function Comparison() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-base font-semibold leading-7 text-primary-500">
+            <h2 className="text-base font-semibold leading-7 text-primary">
               Comparison
             </h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Why choose CashSplit?
+            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Why choose Mint?
             </p>
-            <p className="mt-6 text-lg leading-8 text-gray-300 max-w-3xl mx-auto">
+            <p className="mt-6 text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
               Traditional cashback and rewards programs keep most of the money for themselves.
               We believe in sharing the wealth with our users.
             </p>
@@ -67,34 +67,34 @@ export function Comparison() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="mt-16 rounded-3xl bg-primary-900/40 backdrop-blur-sm border border-primary-500/10"
+            className="mt-16 rounded-3xl bg-white shadow-xl border border-gray-100"
           >
             {/* Table header */}
-            <div className="grid grid-cols-3 gap-x-8 p-8 text-lg font-semibold text-white border-b border-primary-500/10">
+            <div className="grid grid-cols-3 gap-x-8 p-8 text-lg font-semibold text-gray-900 border-b border-gray-100">
               <div>Feature</div>
-              <div className="text-center text-primary-400">CashSplit</div>
-              <div className="text-center text-gray-500">Others</div>
+              <div className="text-center text-primary">Mint</div>
+              <div className="text-center text-gray-400">Others</div>
             </div>
 
             {/* Table body */}
-            <div className="divide-y divide-primary-500/10">
+            <div className="divide-y divide-gray-100">
               {comparisonData.map((item, index) => (
                 <motion.div
                   key={item.feature}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="grid grid-cols-3 gap-x-8 p-8 hover:bg-primary-500/5 transition-colors"
+                  className="grid grid-cols-3 gap-x-8 p-8 hover:bg-gray-50 transition-colors"
                 >
                   <div>
-                    <div className="font-medium text-white">{item.feature}</div>
-                    <div className="mt-1 text-sm text-gray-400">{item.description}</div>
+                    <div className="font-medium text-gray-900">{item.feature}</div>
+                    <div className="mt-1 text-sm text-gray-500">{item.description}</div>
                   </div>
                   <div className="flex justify-center items-center">
-                    <Check className="h-6 w-6 text-primary-500" />
+                    <Check className="h-6 w-6 text-primary" />
                   </div>
                   <div className="flex justify-center items-center">
-                    <X className="h-6 w-6 text-gray-500" />
+                    <X className="h-6 w-6 text-gray-400" />
                   </div>
                 </motion.div>
               ))}
@@ -110,7 +110,7 @@ export function Comparison() {
           >
             <a
               href="#download"
-              className="inline-flex items-center px-8 py-4 rounded-full bg-primary-500 text-black font-semibold hover:bg-primary-400 transition-colors"
+              className="inline-flex items-center px-8 py-4 rounded-full bg-primary text-white font-semibold hover:bg-primary-600 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-primary/25"
             >
               Start Earning Now
             </a>

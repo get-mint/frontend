@@ -10,18 +10,23 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#00D6A3",
-          50: "#E6FFF8",
-          100: "#B3FFE6",
-          200: "#80FFD4",
-          300: "#4DFFC2",
-          400: "#1AFFB0",
-          500: "#00D6A3",
-          600: "#00A37C",
-          700: "#007055",
-          800: "#003D2E",
-          900: "#000A07",
+          DEFAULT: "#4CD964",
+          50: "#EBFBED",
+          100: "#D7F7DB",
+          200: "#B0EFB7",
+          300: "#89E793",
+          400: "#62DF6F",
+          500: "#4CD964",
+          600: "#28D144",
+          700: "#1FA434",
+          800: "#177725",
+          900: "#0F4A17",
         },
+        mint: {
+          light: "#8FD14F",
+          DEFAULT: "#4CD964",
+          dark: "#1FA434",
+        }
       },
       animation: {
         "scroll-slow": "scroll 40s linear infinite",
