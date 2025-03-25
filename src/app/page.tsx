@@ -24,49 +24,11 @@ const FloatingCard = ({
   delay = 0,
   className = "",
 }: FloatingCardProps) => {
-  const { x, y } = useMousePosition();
-  const ref = useRef<HTMLDivElement>(null);
-
-  const rotateX = useSpring(useMotionValue(0), { stiffness: 50, damping: 10 });
-  const rotateY = useSpring(useMotionValue(0), { stiffness: 50, damping: 10 });
-  const positionX = useSpring(useMotionValue(0), {
-    stiffness: 50,
-    damping: 15,
-  });
-  const positionY = useSpring(useMotionValue(0), {
-    stiffness: 50,
-    damping: 15,
-  });
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.x + rect.width / 2;
-    const centerY = rect.y + rect.height / 2;
-
-    const moveX = (x - centerX) / 30;
-    const moveY = (y - centerY) / 30;
-
-    rotateX.set(-moveY);
-    rotateY.set(moveX);
-    positionX.set(moveX / 2);
-    positionY.set(moveY / 2);
-  }, [x, y]);
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay }}
-      style={{
-        rotateX,
-        rotateY,
-        x: positionX,
-        y: positionY,
-        transformStyle: "preserve-3d",
-        perspective: 1000,
-      }}
       className={className}
     >
       {children}
@@ -212,7 +174,7 @@ const Hero = () => {
 
       <div className="container relative z-10 mx-auto px-4">
         <motion.div className="max-w-6xl mx-auto text-center">
-          <div className="grid grid-cols-3 gap-6 mb-20">
+          <div className="hidden md:grid grid-cols-3 gap-6 mb-12">
             {[
               ["50%", "Commission Split"],
               ["5000+", "Partner Stores"],
@@ -253,7 +215,7 @@ const Hero = () => {
             >
               <button className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-200" />
-                <div className="relative px-8 py-4 bg-black rounded-full border border-primary/50 text-white font-semibold text-lg leading-none">
+                <div className="relative px-8 py-4 bg-primary rounded-full border border-primary/50 text-white font-semibold text-lg leading-none">
                   Download Mint Extension
                 </div>
               </button>
