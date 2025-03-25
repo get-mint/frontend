@@ -117,12 +117,12 @@ export function Hero() {
                 Free to install • No credit card required
               </p>
 
-              {/* Stats */}
+              {/* Stats moved up */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.8 }}
-                className="grid grid-cols-3 gap-12 pt-12 border-t border-gray-100"
+                transition={{ delay: 0.5 }}
+                className="grid grid-cols-3 gap-12 mb-12 -mb-20"
               >
                 {[
                   ["50%", "Commission Split"],
