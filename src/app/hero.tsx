@@ -62,7 +62,7 @@ function ParticleField() {
 
 export function Hero() {
   return (
-    <div className="relative min-h-screen flex items-center justify-center">
+    <div className="relative min-h-screen flex items-center justify-center overflow-x-hidden">
       <div className="absolute inset-0 from-background to-muted">
         <ParticleField />
 
@@ -76,7 +76,7 @@ export function Hero() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-r from-primary/30 to-primary-600/30 blur-3xl"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] max-w-[600px] aspect-square rounded-full bg-gradient-to-r from-primary/30 to-primary-600/30 blur-3xl"
         />
       </div>
 
