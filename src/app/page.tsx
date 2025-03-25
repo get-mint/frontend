@@ -26,7 +26,7 @@ export default function Home() {
 
       <div className="mt-8 text-sm text-muted-foreground">
         <p>
-          Need help getting started? Check out the{" "}
+          Need help getting aura? Check out the{" "}
           <Link
             href="https://github.com/alexandros-lekkas/next-supa-shad-boilerplate/blob/main/README.md"
             className="underline hover:text-foreground"
