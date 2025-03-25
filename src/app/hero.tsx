@@ -93,10 +93,10 @@ export function Hero() {
               </span>
             </h1>
 
-            <div className="flex flex-row gap-3 mb-6 justify-center px-4">
+            <div className="flex flex-row gap-3 mb-6 justify-center">
               <Button
                 size="lg"
-                className="rounded-full py-7 text-lg sm:text-xl"
+                className="rounded-full py-7 text-lg sm:text-xl ml-4"
               >
                 <div className="flex flex-row gap-2 items-center">
                   Install Mint for Chrome
@@ -105,7 +105,7 @@ export function Hero() {
               </Button>
 
               <Button
-                className="rounded-full py-7 text-lg sm:text-xl"
+                className="rounded-full py-7 text-lg sm:text-xl mr-4"
                 variant="outline"
               >
                 <div className="flex flex-row gap-2 items-center">
