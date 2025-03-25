@@ -1,39 +1,44 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const steps = [
   {
-    title: "Install Mint",
+    title: "Install Mint & enter your email",
     description:
-      "Add our extension to your browser in seconds. It's free and takes no setup.",
+      "Add our extension to your browser in seconds. It's free! When you install it, all you need to do is enter your email.",
     highlight: "One-click install",
     color: "from-primary/20 to-primary/5",
   },
   {
     title: "Shop as usual",
     description:
-      "Continue shopping at your favorite stores. We'll automatically find the best deals.",
-    highlight: "5000+ stores",
+      "Continue shopping at your favorite stores. Whenever you go to checkout on a compatible site, we'll prompt you to earn cash back. One click and you're done.",
+    highlight: "Easy cash back",
     color: "from-primary/30 to-primary/10",
   },
   {
     title: "Get paid",
     description:
-      "Earn real cash back on every purchase. No points, no gift cards—just money.",
-    highlight: "Instant payouts",
+      "Earn real cash back on every purchase. No points, no gift cards—just money. Use the email you register an account to claim your cash back through our dashboard.",
+    highlight: "Fast payouts, real money",
     color: "from-primary/40 to-primary/20",
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section id="how-it-works" className="relative py-16 overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="mx-auto max-w-2xl text-center mb-24">
-          <h2 className="text-base font-semibold leading-7 text-primary mb-3">
+        <div className="mx-auto max-w-2xl text-center mb-16">
+          <Badge
+            variant="outline"
+            className="mb-3 text-lg rounded-full px-4 border-primary/50 bg-primary/10"
+          >
             How It Works
-          </h2>
+          </Badge>
+
           <p className="text-4xl font-bold tracking-tight text-foreground mb-6">
-            Three steps to start earning
+            3 simple steps to start earning
           </p>
           <p className="text-xl text-muted-foreground">
             Getting cash back has never been easier

@@ -100,7 +100,13 @@ export function Hero() {
                 </div>
               </Button>
 
-              <Button className="rounded-full py-7 text-lg" variant="outline">
+              <Button 
+                className="rounded-full py-7 text-lg" 
+                variant="outline"
+                onClick={() => {
+                  document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 <div className="flex flex-row gap-2 items-center">
                   Learn More
                   <ArrowRight className="size-6" />
