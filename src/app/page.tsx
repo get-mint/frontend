@@ -2,9 +2,11 @@
 
 import { useRef } from "react";
 
-import { Check, X } from "lucide-react";
+import { ArrowRight, Check, Leaf, X } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
+
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 function ParticleField() {
   return (
@@ -45,9 +47,9 @@ function ParticleField() {
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background to-muted">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+      <div className="absolute inset-0 from-background to-muted">
         <ParticleField />
+        <div className="absolute inset-0 backdrop-blur-[100px] bg-background/30" />
 
         <motion.div
           animate={{
@@ -64,54 +66,63 @@ const Hero = () => {
       </div>
 
       <div className="container relative z-10 mx-auto px-4">
-        <motion.div className="max-w-6xl mx-auto text-center">
-          <div className="hidden mx-auto md:grid grid-cols-3 gap-6 mb-12">
-            {[
-              ["50%", "Commission Split"],
-              ["5000+", "Partner Stores"],
-            ].map(([value, label]) => (
-              <Card
-                key={label}
-                className="animate-in fade-in slide-in-from-top-4 duration-700 bg-card/5 backdrop-blur-xl border-border"
-              >
-                <CardContent className="p-6">
-                  <div className="text-4xl font-bold mb-2 text-foreground">
-                    {value}
-                  </div>
-                  <div className="text-muted-foreground">{label}</div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
+        <div className="max-w-6xl mx-auto text-center">
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <h1 className="text-7xl md:text-8xl font-bold">
+            <h1 className="text-5xl md:text-8xl font-bold">
               <span className="block text-foreground mb-4">
-                It's your money.
+                It's your money,
               </span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-600">
-                Mint helps you grab it.
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/80">
+                {" "}
+                we help you grab it.
               </span>
             </h1>
 
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Turn shopping into cash — instantly.
-            </p>
-
-            <div className="inline-block">
-              <button className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-200" />
-                <div className="relative px-8 py-4 bg-primary rounded-full border border-primary/50 text-primary-foreground font-semibold text-lg leading-none">
+            <div className="flex flex-row gap-3 mb-6 justify-center">
+              <Button
+                size="lg"
+                className="rounded-full py-7 text-lg sm:text-xl"
+              >
+                <div className="flex flex-row gap-2 items-center">
                   Download Mint Extension
+                  <Leaf className="size-6" />
                 </div>
-              </button>
+              </Button>
+
+              <Button
+                className="rounded-full py-7 text-lg sm:text-xl"
+                variant="outline"
+              >
+                <div className="flex flex-row gap-2 items-center">
+                  Learn More
+                  <ArrowRight className="size-6" />
+                </div>
+              </Button>
             </div>
 
-            <p className="text-sm text-muted-foreground">
-              Free to install • No credit card required
-            </p>
+            <div className="flex flex-row gap-4 sm:gap-8 mb-6 justify-center">
+              {[
+                ["50%", "Commission Split"],
+                ["5$", "Minimum Payout"],
+                ["100%", "Automated"],
+              ].map(([value, label]) => (
+                <Card
+                  key={label}
+                  className="animate-in fade-in slide-in-from-top-4 duration-700 bg-card/5 backdrop-blur-xl border-border flex-1 max-w-[200px]"
+                >
+                  <CardContent>
+                    <div className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">
+                      {value}
+                    </div>
+                    <div className="text-sm sm:text-md text-muted-foreground">
+                      {label}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
