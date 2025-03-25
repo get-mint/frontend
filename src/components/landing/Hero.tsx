@@ -123,12 +123,14 @@ export function Hero() {
           transition={{ duration: 0.8 }}
           className="space-y-6"
         >
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            Start earning with <span className="text-primary">Mint</span>
+          <h1 className="text-5xl md:text-7xl font-bold text-gray-900">
+            It's your money.
+            <br />
+            We just help you grab it.
           </h1>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Join thousands of smart shoppers who earn cash back on every purchase.
-            With Mint, you get the best deals and real cash rewards.
+          
+          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+            Turn shopping into cash — instantly.
           </p>
 
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
