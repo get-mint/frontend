@@ -83,12 +83,9 @@ export function Hero() {
       <div className="container mx-auto relative px-4 sm:px-6">
         <div className="max-w-6xl mx-auto text-center">
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <h1 className="text-5xl md:text-8xl font-bold">
-              <span className="block text-foreground mb-4">
-                It's your money,
-              </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/80">
-                {" "}
+            <h1 className="text-5xl md:text-8xl font-bold flex flex-col gap-4">
+              <span className="text-foreground">It's your money,</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/80 pb-2">
                 we help you grab it.
               </span>
             </h1>
@@ -96,7 +93,6 @@ export function Hero() {
             <div className="flex flex-row gap-2 sm:gap-3 mb-6 justify-center">
               <Button size="lg" className="rounded-full py-7 text-lg">
                 <div className="flex flex-row gap-2 items-center">
-
                   Download Mint
                   <Leaf className="size-6" />
                 </div>
