@@ -1,4 +1,4 @@
-import { Check, X } from "lucide-react";
+import { Check, X, Minus } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -55,43 +55,45 @@ export function Comparison() {
 
             <Card className="relative backdrop-blur-sm">
               <CardContent className="p-8">
-                <div className="grid grid-cols-3 gap-4 mb-8">
-                  <div className="text-left text-lg font-medium text-muted-foreground">
-                    Features
-                  </div>
-                  <div className="text-center text-lg font-medium text-primary">
-                    Mint
-                  </div>
-                  <div className="text-center text-lg font-medium text-amber-500">
-                    Others
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                  {comparisonFeatures.map((feature) => (
-                    <div
-                      key={feature.name}
-                      className="grid grid-cols-3 gap-4 items-center group"
-                    >
-                      <div className="text-left text-muted-foreground group-hover:text-foreground transition-colors">
-                        {feature.name}
-                      </div>
-                      <div className="flex justify-center">
-                        <div className="w-6 h-6 text-primary hover:scale-110 transition-transform">
-                          {feature.mint ? <Check size={24} /> : <X size={24} />}
-                        </div>
-                      </div>
-                      <div className="flex justify-center">
-                        <div className="w-6 h-6 text-muted-foreground hover:scale-110 transition-transform">
-                          {feature.others ? (
-                            <Check size={24} />
-                          ) : (
-                            <X size={24} />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                <div className="border rounded-lg overflow-hidden">
+                  <table className="w-full">
+                    <thead>
+                      <tr>
+                        <th className="border-b border-r p-4 text-left text-lg font-medium text-muted-foreground bg-muted/50">
+                          Features
+                        </th>
+                        <th className="border-b border-r p-4 text-center text-lg font-medium text-primary bg-muted/50">
+                          Mint
+                        </th>
+                        <th className="border-b p-4 text-center text-lg font-medium text-amber-500 bg-muted/50">
+                          Others
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {comparisonFeatures.map((feature, index) => (
+                        <tr key={feature.name}>
+                          <td className={`border-r p-4 text-muted-foreground ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                            {feature.name}
+                          </td>
+                          <td className={`border-r p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                            <div className="flex justify-center">
+                              <div className="w-6 h-6 text-primary">
+                                {feature.mint ? <Check size={24} /> : <Minus size={24} />}
+                              </div>
+                            </div>
+                          </td>
+                          <td className={`p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                            <div className="flex justify-center">
+                              <div className="w-6 h-6 text-muted-foreground">
+                                {feature.others ? <Check size={24} /> : <X size={24} />}
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </CardContent>
             </Card>
