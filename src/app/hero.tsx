@@ -96,7 +96,8 @@ export function Hero() {
             <div className="flex flex-row gap-2 sm:gap-3 mb-6 justify-center">
               <Button size="lg" className="rounded-full py-7 text-lg">
                 <div className="flex flex-row gap-2 items-center">
-                  Install Mint for Chrome
+
+                  Download Mint
                   <Leaf className="size-6" />
                 </div>
               </Button>
