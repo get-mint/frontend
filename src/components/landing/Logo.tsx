@@ -8,9 +8,9 @@ export function Logo() {
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-6 left-0 right-0 z-50 px-6"
+      className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100"
     >
-      <nav className="mx-auto max-w-7xl flex items-center justify-between">
+      <nav className="mx-auto max-w-7xl flex items-center justify-between h-16 px-6">
         <Link href="/" className="flex items-center space-x-2">
           <span className="text-xl font-bold text-primary">Mint</span>
         </Link>
