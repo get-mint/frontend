@@ -1,49 +1,18 @@
 "use client";
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
-import { useRef, useEffect, ReactNode } from "react";
-import { useMousePosition } from "@/hooks/useMousePosition";
-import { Check, X, Leaf } from "lucide-react";
-import Link from "next/link";
+import { useRef } from "react";
 
-// FloatingCard Component
-interface FloatingCardProps {
-  children: ReactNode;
-  delay?: number;
-  className?: string;
-}
+import { Check, X } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
 
-const FloatingCard = ({
-  children,
-  delay = 0,
-  className = "",
-}: FloatingCardProps) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-};
-
-// ParticleField Component
-const ParticleField = () => {
+function ParticleField() {
   return (
     <div className="absolute inset-0 overflow-hidden">
       {Array.from({ length: 50 }).map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-primary/30 rounded-full"
+          className="absolute w-1 h-1 bg-primary/30 dark:bg-primary/20 rounded-full"
           initial={{
             x: Math.random() * window.innerWidth,
             y: Math.random() * window.innerHeight,
@@ -71,90 +40,12 @@ const ParticleField = () => {
       ))}
     </div>
   );
-};
+}
 
-// Navigation Component
-const navItems = [
-  { name: "How it Works", href: "#how-it-works" },
-  { name: "Features", href: "#features" },
-  { name: "Compare", href: "#compare" },
-];
-
-const Navigation = () => {
-  const scrollToSection = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="relative"
-      >
-        <div className="absolute inset-0 bg-dark-500/80 backdrop-blur-lg" />
-
-        <div className="container mx-auto px-4">
-          <div className="relative flex h-20 items-center justify-between">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              <Link href="/" className="flex items-center space-x-2">
-                <Leaf className="h-8 w-8 text-primary" />
-                <span className="text-2xl font-bold text-white">Mint</span>
-              </Link>
-            </motion.div>
-
-            <nav className="flex items-center space-x-8">
-              {navItems.map((item) => (
-                <motion.div
-                  key={item.name}
-                  whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={(e) => scrollToSection(e, item.href)}
-                    className="text-gray-300 hover:text-white transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                </motion.div>
-              ))}
-
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <button className="relative group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-primary-600 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-200" />
-                  <div className="relative px-6 py-2 bg-dark-400 rounded-full border border-primary/50 text-white font-medium leading-none">
-                    Download Now
-                  </div>
-                </button>
-              </motion.div>
-            </nav>
-          </div>
-        </div>
-      </motion.div>
-    </header>
-  );
-};
-
-// Hero Section
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-black to-gray-900">
+      <div className="absolute inset-0 bg-gradient-to-b from-background to-muted">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
         <ParticleField />
 
@@ -174,57 +65,52 @@ const Hero = () => {
 
       <div className="container relative z-10 mx-auto px-4">
         <motion.div className="max-w-6xl mx-auto text-center">
-          <div className="hidden md:grid grid-cols-3 gap-6 mb-12">
+          <div className="hidden mx-auto md:grid grid-cols-3 gap-6 mb-12">
             {[
               ["50%", "Commission Split"],
               ["5000+", "Partner Stores"],
-              ["Instant", "Cash Out"],
-            ].map(([value, label], index) => (
-              <FloatingCard
+            ].map(([value, label]) => (
+              <Card
                 key={label}
-                delay={index * 0.2}
-                className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 text-white"
+                className="animate-in fade-in slide-in-from-top-4 duration-700 bg-card/5 backdrop-blur-xl border-border"
               >
-                <div className="text-4xl font-bold mb-2">{value}</div>
-                <div className="text-gray-400">{label}</div>
-              </FloatingCard>
+                <CardContent className="p-6">
+                  <div className="text-4xl font-bold mb-2 text-foreground">
+                    {value}
+                  </div>
+                  <div className="text-muted-foreground">{label}</div>
+                </CardContent>
+              </Card>
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="space-y-8"
-          >
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <h1 className="text-7xl md:text-8xl font-bold">
-              <span className="block text-white mb-4">It's your money.</span>
+              <span className="block text-foreground mb-4">
+                It's your money.
+              </span>
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-600">
                 Mint helps you grab it.
               </span>
             </h1>
 
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Turn shopping into cash — instantly.
             </p>
 
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block"
-            >
+            <div className="inline-block">
               <button className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-200" />
-                <div className="relative px-8 py-4 bg-primary rounded-full border border-primary/50 text-white font-semibold text-lg leading-none">
+                <div className="relative px-8 py-4 bg-primary rounded-full border border-primary/50 text-primary-foreground font-semibold text-lg leading-none">
                   Download Mint Extension
                 </div>
               </button>
-            </motion.div>
+            </div>
 
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
               Free to install • No credit card required
             </p>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
@@ -277,10 +163,10 @@ const HowItWorks = () => {
           <h2 className="text-base font-semibold leading-7 text-primary mb-3">
             How It Works
           </h2>
-          <p className="text-4xl font-bold tracking-tight text-gray-900 mb-6">
+          <p className="text-4xl font-bold tracking-tight text-foreground mb-6">
             Three steps to start earning
           </p>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-muted-foreground">
             Getting cash back has never been easier
           </p>
         </motion.div>
@@ -288,12 +174,13 @@ const HowItWorks = () => {
         <div className="relative max-w-7xl mx-auto">
           <div className="relative grid grid-cols-1 gap-16">
             {steps.map((step, index) => (
-              <motion.div
+              <div
                 key={step.title}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="relative"
+                className={`relative animate-in fade-in ${
+                  index % 2 === 0
+                    ? "slide-in-from-left-4"
+                    : "slide-in-from-right-4"
+                } duration-700`}
               >
                 <div
                   className={`
@@ -319,22 +206,21 @@ const HowItWorks = () => {
                   </div>
 
                   <div className="flex-1 relative group">
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
-                    >
-                      <div className="space-y-4">
-                        <h3 className="text-2xl font-bold text-gray-900">
-                          {step.title}
-                        </h3>
-                        <p className="text-gray-600 text-lg leading-relaxed">
-                          {step.description}
-                        </p>
-                        <div className="inline-block px-4 py-1 bg-primary/10 rounded-full text-sm font-medium text-primary">
-                          {step.highlight}
+                    <Card className="relative group-hover:scale-105 transition-transform duration-300">
+                      <CardContent className="p-8">
+                        <div className="space-y-4">
+                          <h3 className="text-2xl font-bold text-foreground">
+                            {step.title}
+                          </h3>
+                          <p className="text-muted-foreground text-lg leading-relaxed">
+                            {step.description}
+                          </p>
+                          <div className="inline-block px-4 py-1 bg-primary/10 rounded-full text-sm font-medium text-primary">
+                            {step.highlight}
+                          </div>
                         </div>
-                      </div>
-                    </motion.div>
+                      </CardContent>
+                    </Card>
 
                     <div
                       className={`
@@ -345,7 +231,7 @@ const HowItWorks = () => {
                     />
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -387,7 +273,7 @@ const features = [
 
 const Features = () => {
   return (
-    <section className="relative py-32 bg-dark-500 overflow-hidden">
+    <section className="relative py-32 bg-muted overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-5" />
       <motion.div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
@@ -414,46 +300,40 @@ const Features = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl font-bold text-white mb-6">
+          <h2 className="text-5xl font-bold text-foreground mb-6">
             Features that set us apart
           </h2>
-          <p className="text-xl text-gray-400">
+          <p className="text-xl text-muted-foreground">
             Everything you need to maximize your cash back
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {features.map((feature, index) => (
-            <motion.div
+            <Card
               key={feature.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="group relative"
+              className="group relative animate-in fade-in slide-in-from-bottom-4 duration-700 hover:scale-[1.02] transition-transform duration-300"
             >
-              <div className="absolute inset-0 bg-dark-400 rounded-2xl transform transition-all duration-300 group-hover:scale-[1.02] group-hover:bg-dark-300" />
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 rounded-2xl transition-opacity duration-300 group-hover:opacity-100" />
-
-              <div className="relative p-8">
+              <CardContent className="p-8">
                 <div className="text-4xl mb-6">{feature.icon}</div>
-                <h3 className="text-2xl font-bold text-white mb-4">
+                <h3 className="text-2xl font-bold text-foreground mb-4">
                   {feature.title}
                 </h3>
-                <p className="text-gray-400 mb-6 leading-relaxed">
+                <p className="text-muted-foreground mb-6 leading-relaxed">
                   {feature.description}
                 </p>
                 <div className="flex items-baseline space-x-2">
                   <span className="text-3xl font-bold text-primary">
                     {feature.stats[0]}
                   </span>
-                  <span className="text-gray-500">{feature.stats[1]}</span>
+                  <span className="text-muted-foreground">
+                    {feature.stats[1]}
+                  </span>
                 </div>
 
                 <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary/60 via-primary to-primary/60 opacity-0 transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
-              </div>
-            </motion.div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
@@ -497,7 +377,7 @@ const comparisonFeatures = [
 
 const Comparison = () => {
   return (
-    <section className="relative py-32 bg-dark-400 overflow-hidden">
+    <section className="relative py-32 bg-muted overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-5" />
       <motion.div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
@@ -524,10 +404,10 @@ const Comparison = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl font-bold text-white mb-6">
+          <h2 className="text-5xl font-bold text-foreground mb-6">
             The Mint Difference
           </h2>
-          <p className="text-xl text-gray-400">
+          <p className="text-xl text-muted-foreground">
             See how we compare to traditional cash back services
           </p>
         </motion.div>
@@ -542,52 +422,54 @@ const Comparison = () => {
           <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 rounded-2xl blur-lg opacity-25" />
 
-            <div className="relative bg-dark-500 rounded-xl p-8 backdrop-blur-sm">
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="text-left text-lg font-medium text-gray-400">
-                  Features
+            <Card className="relative backdrop-blur-sm">
+              <CardContent className="p-8">
+                <div className="grid grid-cols-3 gap-4 mb-8">
+                  <div className="text-left text-lg font-medium text-muted-foreground">
+                    Features
+                  </div>
+                  <div className="text-center text-lg font-medium text-primary">
+                    Mint
+                  </div>
+                  <div className="text-center text-lg font-medium text-amber-500">
+                    Others
+                  </div>
                 </div>
-                <div className="text-center text-lg font-medium text-primary">
-                  Mint
-                </div>
-                <div className="text-center text-lg font-medium text-amber-500">
-                  Others
-                </div>
-              </div>
 
-              <div className="space-y-6">
-                {comparisonFeatures.map((feature, index) => (
-                  <motion.div
-                    key={feature.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="grid grid-cols-3 gap-4 items-center group"
-                  >
-                    <div className="text-left text-gray-300 group-hover:text-white transition-colors">
-                      {feature.name}
+                <div className="space-y-6">
+                  {comparisonFeatures.map((feature) => (
+                    <div
+                      key={feature.name}
+                      className="grid grid-cols-3 gap-4 items-center group animate-in fade-in slide-in-from-left-4 duration-700"
+                    >
+                      <div className="text-left text-muted-foreground group-hover:text-foreground transition-colors">
+                        {feature.name}
+                      </div>
+                      <div className="flex justify-center">
+                        <motion.div
+                          whileHover={{ scale: 1.2 }}
+                          className="w-6 h-6 text-primary"
+                        >
+                          {feature.mint ? <Check size={24} /> : <X size={24} />}
+                        </motion.div>
+                      </div>
+                      <div className="flex justify-center">
+                        <motion.div
+                          whileHover={{ scale: 1.2 }}
+                          className="w-6 h-6 text-muted-foreground"
+                        >
+                          {feature.others ? (
+                            <Check size={24} />
+                          ) : (
+                            <X size={24} />
+                          )}
+                        </motion.div>
+                      </div>
                     </div>
-                    <div className="flex justify-center">
-                      <motion.div
-                        whileHover={{ scale: 1.2 }}
-                        className="w-6 h-6 text-primary"
-                      >
-                        {feature.mint ? <Check size={24} /> : <X size={24} />}
-                      </motion.div>
-                    </div>
-                    <div className="flex justify-center">
-                      <motion.div
-                        whileHover={{ scale: 1.2 }}
-                        className="w-6 h-6 text-gray-400"
-                      >
-                        {feature.others ? <Check size={24} /> : <X size={24} />}
-                      </motion.div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </motion.div>
       </div>
@@ -598,25 +480,25 @@ const Comparison = () => {
 // Main Page Component
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#fbfbfd]">
+    <main className="relative min-h-screen bg-background">
       <div className="relative">
         <section className="relative min-h-screen">
           <Hero />
         </section>
 
-        <section className="relative bg-white py-32">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#fbfbfd] to-white" />
+        <section className="relative bg-card py-32">
+          <div className="absolute inset-0 bg-gradient-to-b from-background to-card" />
           <div className="relative">
             <HowItWorks />
           </div>
         </section>
 
-        <section className="relative bg-[#fbfbfd] py-32">
+        <section className="relative bg-background py-32">
           <Features />
         </section>
 
-        <section className="relative bg-white py-32">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#fbfbfd] to-white" />
+        <section className="relative bg-card py-32">
+          <div className="absolute inset-0 bg-gradient-to-b from-background to-card" />
           <div className="relative">
             <Comparison />
           </div>
