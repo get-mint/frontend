@@ -1,6 +1,4 @@
-import { Check, X } from "lucide-react";
-
-import { Card, CardContent } from "@/components/ui/card";
+import { Check, X, Minus } from "lucide-react";
 
 const comparisonFeatures = [
   {
@@ -52,49 +50,47 @@ export function Comparison() {
         <div className="max-w-4xl mx-auto">
           <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 rounded-2xl blur-lg opacity-25" />
-
-            <Card className="relative backdrop-blur-sm">
-              <CardContent className="p-8">
-                <div className="grid grid-cols-3 gap-4 mb-8">
-                  <div className="text-left text-lg font-medium text-muted-foreground">
-                    Features
-                  </div>
-                  <div className="text-center text-lg font-medium text-primary">
-                    Mint
-                  </div>
-                  <div className="text-center text-lg font-medium text-amber-500">
-                    Others
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                  {comparisonFeatures.map((feature) => (
-                    <div
-                      key={feature.name}
-                      className="grid grid-cols-3 gap-4 items-center group"
-                    >
-                      <div className="text-left text-muted-foreground group-hover:text-foreground transition-colors">
+            
+            <div className="relative bg-background border rounded-lg overflow-hidden shadow-sm">
+              <table className="w-full">
+                <thead>
+                  <tr>
+                    <th className="border-b border-r p-6 text-left text-lg font-medium text-muted-foreground bg-muted/50 w-[70%]">
+                      Features
+                    </th>
+                    <th className="border-b border-r p-4 text-center text-lg font-medium text-primary bg-muted/50 w-[15%]">
+                      Mint
+                    </th>
+                    <th className="border-b p-4 text-center text-lg font-medium text-amber-500 bg-muted/50 w-[15%]">
+                      Others
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonFeatures.map((feature, index) => (
+                    <tr key={feature.name}>
+                      <td className={`border-r p-6 text-muted-foreground ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
                         {feature.name}
-                      </div>
-                      <div className="flex justify-center">
-                        <div className="w-6 h-6 text-primary hover:scale-110 transition-transform">
-                          {feature.mint ? <Check size={24} /> : <X size={24} />}
+                      </td>
+                      <td className={`border-r p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                        <div className="flex justify-center">
+                          <div className="w-5 h-5 text-emerald-400 drop-shadow-[0_0_3px_rgba(52,211,153,0.7)]">
+                            {feature.mint ? <Check size={18} /> : <Minus size={18} />}
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex justify-center">
-                        <div className="w-6 h-6 text-muted-foreground hover:scale-110 transition-transform">
-                          {feature.others ? (
-                            <Check size={24} />
-                          ) : (
-                            <X size={24} />
-                          )}
+                      </td>
+                      <td className={`p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                        <div className="flex justify-center">
+                          <div className="w-5 h-5 text-muted-foreground">
+                            {feature.others ? <Check size={18} /> : <X size={18} />}
+                          </div>
                         </div>
-                      </div>
-                    </div>
+                      </td>
+                    </tr>
                   ))}
-                </div>
-              </CardContent>
-            </Card>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
