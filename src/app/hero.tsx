@@ -1,12 +1,30 @@
 "use client";
 
-import { ArrowRight, Leaf } from "lucide-react";
+import { useState, useEffect } from "react";
+
 import { motion } from "framer-motion";
+import { ArrowRight, Leaf } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 function ParticleField() {
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
+
   return (
     <div className="absolute inset-0 overflow-hidden">
       {Array.from({ length: 50 }).map((_, i) => (
@@ -14,20 +32,20 @@ function ParticleField() {
           key={i}
           className="absolute w-1 h-1 bg-primary/30 dark:bg-primary/20 rounded-full"
           initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
             scale: 0,
           }}
           animate={{
             x: [
-              Math.random() * window.innerWidth,
-              Math.random() * window.innerWidth,
-              Math.random() * window.innerWidth,
+              Math.random() * dimensions.width,
+              Math.random() * dimensions.width,
+              Math.random() * dimensions.width,
             ],
             y: [
-              Math.random() * window.innerHeight,
-              Math.random() * window.innerHeight,
-              Math.random() * window.innerHeight,
+              Math.random() * dimensions.height,
+              Math.random() * dimensions.height,
+              Math.random() * dimensions.height,
             ],
             scale: [0, 1.5, 0],
           }}
