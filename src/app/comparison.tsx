@@ -35,7 +35,7 @@ const comparisonFeatures = [
 
 export function Comparison() {
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative pt-12 pb-20 overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-5" />
       <div className="container relative z-10 mx-auto px-4">
         <div className="text-center mb-20">
