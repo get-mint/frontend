@@ -1,6 +1,6 @@
 # Frontend 🌐
 
-NextJS, Supabase, & ShadCN boilerplate to set-up your projects faster.
+Mint's frontend built in Next.
 
 ## Deployment 🤖
 
