@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Leaf } from "lucide-react";
 
 export function Logo() {
   return (
@@ -12,6 +13,7 @@ export function Logo() {
     >
       <nav className="mx-auto max-w-7xl flex items-center justify-between h-16 px-6">
         <Link href="/" className="flex items-center space-x-2">
+          <Leaf className="h-6 w-6 text-primary" />
           <span className="text-xl font-bold text-primary">Mint</span>
         </Link>
 

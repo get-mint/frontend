@@ -6,31 +6,31 @@ import { Check, X } from 'lucide-react';
 const comparisonData = [
   {
     feature: 'Cash rewards',
-    cashsplit: true,
+    mint: true,
     others: false,
     description: 'Get real cash, not points or gift cards',
   },
   {
     feature: 'Student-focused',
-    cashsplit: true,
+    mint: true,
     others: false,
     description: 'Built specifically for student needs',
   },
   {
     feature: '50/50+ commission split',
-    cashsplit: true,
+    mint: true,
     others: false,
     description: 'We share at least half of every commission',
   },
   {
     feature: 'Instant payouts',
-    cashsplit: true,
+    mint: true,
     others: false,
     description: 'No waiting periods or minimum thresholds',
   },
   {
     feature: 'Transparent earnings',
-    cashsplit: true,
+    mint: true,
     others: false,
     description: 'See exactly how much you earn from each purchase',
   },
@@ -91,10 +91,10 @@ export function Comparison() {
                     <div className="mt-2 text-sm text-gray-500 leading-relaxed">{item.description}</div>
                   </div>
                   <div className="flex justify-center items-center">
-                    <Check className="h-6 w-6 text-primary" />
+                    {item.mint ? <Check className="h-6 w-6 text-primary" /> : <X className="h-6 w-6 text-gray-400" />}
                   </div>
                   <div className="flex justify-center items-center">
-                    <X className="h-6 w-6 text-gray-400" />
+                    {item.others ? <Check className="h-6 w-6 text-primary" /> : <X className="h-6 w-6 text-gray-400" />}
                   </div>
                 </motion.div>
               ))}
