@@ -1,33 +1,25 @@
 import { Check, X, Minus } from "lucide-react";
 
+import { Badge } from "@/components/ui/badge";
+
 const comparisonFeatures = [
   {
-    name: "Instant Cash Back",
+    name: "Transparent cash back",
     mint: true,
     others: false,
   },
   {
-    name: "No Minimum Payout",
+    name: "Low minimum payout",
     mint: true,
     others: false,
   },
   {
-    name: "Automatic Detection",
+    name: "Real cash (not points)",
     mint: true,
     others: false,
   },
   {
-    name: "Universal Coverage",
-    mint: true,
-    others: false,
-  },
-  {
-    name: "Real Cash (Not Points)",
-    mint: true,
-    others: false,
-  },
-  {
-    name: "Zero Waiting Period",
+    name: "Fast payouts",
     mint: true,
     others: false,
   },
@@ -39,6 +31,12 @@ export function Comparison() {
       <div className="absolute inset-0 bg-grid opacity-5" />
       <div className="container relative z-10 mx-auto px-4">
         <div className="text-center mb-20">
+          <Badge
+            variant="outline"
+            className="mb-3 text-lg rounded-full px-4 border-primary/50 bg-primary/10"
+          >
+            Comparison
+          </Badge>
           <h2 className="text-5xl font-bold text-foreground mb-6">
             The Mint Difference
           </h2>

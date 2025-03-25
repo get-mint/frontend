@@ -5,21 +5,19 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t bg-background">
+    <footer className="border-t bg-background mt-24">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Leaf className="h-6 w-6 text-primary" />
               <span className="text-xl font-bold">Mint</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Maximizing your cash back with smart automation and instant payouts.
+              team@getmint.lol
             </p>
           </div>
 
-          {/* Product Links */}
           <div>
             <h3 className="font-semibold mb-4">Product</h3>
             <ul className="space-y-2">
@@ -41,7 +39,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company Links */}
           <div>
             <h3 className="font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
@@ -63,7 +60,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Legal Links */}
           <div>
             <h3 className="font-semibold mb-4">Legal</h3>
             <ul className="space-y-2">
