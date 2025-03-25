@@ -1,44 +1,38 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { DollarSign } from 'lucide-react';
+import Link from "next/link";
+import { motion } from "framer-motion";
 
 export function Logo() {
   return (
-    <motion.header
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/50 border-b border-primary-500/10"
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="fixed top-6 left-0 right-0 z-50 px-6"
     >
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-primary-500 flex items-center justify-center">
-              <DollarSign className="h-5 w-5 text-black" />
-            </div>
-            <span className="text-xl font-bold text-white">CashSplit</span>
-          </div>
-          
-          <nav className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm text-primary-100/80 hover:text-primary-400 transition-colors">
-              Features
-            </a>
-            <a href="#how-it-works" className="text-sm text-primary-100/80 hover:text-primary-400 transition-colors">
-              How it Works
-            </a>
-            <a href="#comparison" className="text-sm text-primary-100/80 hover:text-primary-400 transition-colors">
-              Compare
-            </a>
-            <a
-              href="#download"
-              className="inline-flex h-8 items-center rounded-full bg-primary-500 px-4 text-sm font-medium text-black hover:bg-primary-400 transition-colors"
-            >
-              Download Now
-            </a>
-          </nav>
+      <nav className="mx-auto max-w-7xl flex items-center justify-between">
+        <Link href="/" className="flex items-center space-x-2">
+          <span className="text-xl font-bold text-primary">Mint</span>
+        </Link>
+
+        <div className="flex items-center space-x-8">
+          <Link href="#features" className="text-primary hover:text-primary-600 transition-colors">
+            Features
+          </Link>
+          <Link href="#how-it-works" className="text-primary hover:text-primary-600 transition-colors">
+            How it Works
+          </Link>
+          <Link href="#comparison" className="text-primary hover:text-primary-600 transition-colors">
+            Compare
+          </Link>
+          <Link
+            href="#download"
+            className="px-4 py-2 rounded-full bg-primary text-white hover:bg-primary-600 transition-colors"
+          >
+            Download Now
+          </Link>
         </div>
-      </div>
-    </motion.header>
+      </nav>
+    </motion.div>
   );
 }
