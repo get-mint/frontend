@@ -83,8 +83,10 @@ export function Hero() {
       <div className="container mx-auto relative px-4 sm:px-6">
         <div className="max-w-6xl mx-auto text-center">
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <h1 className="text-5xl md:text-8xl font-bold flex flex-col gap-4">
-              <span className="text-foreground">It's your money,</span>
+            <h1 className="text-5xl md:text-8xl font-bold flex flex-col gap-0">
+              <span className="text-foreground">
+                It's your money,
+              </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/80 pb-2">
                 we help you grab it.
               </span>
