@@ -62,7 +62,7 @@ function ParticleField() {
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div className="container mx-auto relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 from-background to-muted">
         <ParticleField />
 
@@ -139,6 +139,6 @@ export function Hero() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
