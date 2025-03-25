@@ -92,7 +92,7 @@ export function Hero() {
               </span>
             </h1>
 
-            <div className="flex flex-row gap-2 sm:gap-3 mb-6 justify-center">
+            <div className="flex flex-row gap-2 sm:gap-3 mb-7 justify-center">
               <Button size="lg" className="rounded-full py-7 text-lg">
                 <div className="flex flex-row gap-2 items-center">
                   Download Mint
