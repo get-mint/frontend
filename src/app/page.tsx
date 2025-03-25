@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen bg-background">
       <div className="relative">
-        <section className="relative min-h-screen p-5">
+        <section className="relative min-h-screen">
           <Hero />
         </section>
 
