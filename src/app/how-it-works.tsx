@@ -6,20 +6,20 @@ const steps = [
     title: "Install Mint & enter your email",
     description:
       "Add our extension to your browser in seconds. It's free! When you install it, all you need to do is enter your email.",
-    highlight: "One-click install",
+    highlight: "Two-click install",
     color: "from-primary/20 to-primary/5",
   },
   {
     title: "Shop as usual",
     description:
       "Continue shopping at your favorite stores. Whenever you go to checkout on a compatible site, we'll prompt you to earn cash back. One click and you're done.",
-    highlight: "Easy cash back",
+    highlight: "Easy rewards",
     color: "from-primary/30 to-primary/10",
   },
   {
     title: "Get paid",
     description:
-      "Earn real cash back on every purchase. No points, no gift cards—just money. Use the email you register an account to claim your cash back through our dashboard.",
+      "Earn rewards in your account. Redeem them for cash or gift cards.",
     highlight: "Fast payouts, real money",
     color: "from-primary/40 to-primary/20",
   },
