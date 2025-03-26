@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Leaf } from "lucide-react";
+import { ArrowRight, Info, Leaf } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -121,7 +121,7 @@ export function Hero() {
               ].map(([value, label]) => (
                 <Card
                   key={label}
-                  className="animate-in fade-in slide-in-from-top-4 duration-700 bg-card/5 backdrop-blur-xl border-border flex-1 max-w-[200px]"
+                  className="relative animate-in fade-in slide-in-from-top-4 duration-700 bg-card/5 backdrop-blur-xl border-border flex-1 max-w-[200px] group cursor-pointer"
                 >
                   <CardContent>
                     <div className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">
@@ -130,6 +130,8 @@ export function Hero() {
                     <div className="text-sm sm:text-md text-muted-foreground">
                       {label}
                     </div>
+
+                    <Info className="size-4 absolute top-3 right-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                   </CardContent>
                 </Card>
               ))}

@@ -1,4 +1,4 @@
-import { Banknote, Bot, DollarSign, Zap } from "lucide-react";
+import { Banknote, Bot, DollarSign, Zap, Info } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -77,6 +77,7 @@ export function Features() {
                       {feature.stats[1]}
                     </span>
                   </div>
+                  <Info className="size-4 absolute top-3 right-3 text-muted-foreground" />
                 </CardContent>
               </Card>
             </div>
