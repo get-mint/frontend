@@ -164,15 +164,15 @@ export function Hero() {
                     </Card>
                   </HoverCardTrigger>
                   <HoverCardContent 
-                    className="w-80 bg-background/40 dark:bg-background/20 backdrop-blur-xl border border-white/10 shadow-xl"
+                    className="w-80 bg-white/5 dark:bg-black/5 backdrop-blur-2xl border border-white/20 dark:border-white/10 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(255,255,255,0.1)] rounded-xl"
                     align="center"
                     sideOffset={5}
                     forceMount
                   >
-                    <div className="flex justify-between space-x-4">
-                      <div className="space-y-1">
-                        <h4 className="text-sm font-semibold text-primary">{stat.label}</h4>
-                        <p className="text-sm text-foreground/90">
+                    <div className="flex justify-between space-x-4 p-2">
+                      <div className="space-y-2">
+                        <h4 className="text-base font-semibold text-primary">{stat.label}</h4>
+                        <p className="text-sm text-foreground/80 leading-relaxed">
                           {stat.description}
                         </p>
                       </div>
