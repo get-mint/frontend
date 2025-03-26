@@ -65,5 +65,17 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
+  // Protect admin routes
+  if (request.nextUrl.pathname.startsWith("/admin")) {
+    if (!isAuthenticated) {
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+    }
+
+    const hasAdminRole = await checkRole(supabase, ["admin"]);
+    if (!hasAdminRole) {
+      return NextResponse.redirect(new URL("/unauthorized", request.url));
+    }
+  }
+
   return NextResponse.next();
 }

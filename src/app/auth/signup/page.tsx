@@ -31,6 +31,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [validationErrors, setValidationErrors] = useState<{
     email?: string;
     password?: string;
@@ -67,12 +68,42 @@ export default function SignupPage() {
       setIsLoading(true);
       const signupResult = await signUp(email, password);
       if (!signupResult?.error) {
-        router.push("/dashboard");
+        setIsSuccess(true);
       }
     } finally {
       setIsLoading(false);
     }
   };
+
+  if (isSuccess) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex flex-col items-center text-center gap-4">
+                <h1 className="text-2xl font-bold">Check your email</h1>
+                <p className="text-balance text-muted-foreground">
+                  We've sent you a confirmation link to {email}. Please check
+                  your email and click the link to verify your account.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  If you don't see the email, please check your spam folder.
+                </p>
+                <Button
+                  variant="outline"
+                  onClick={() => setIsSuccess(false)}
+                  className="w-full"
+                >
+                  Try another email
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">

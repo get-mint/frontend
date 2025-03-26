@@ -169,6 +169,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data: authData, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
     });
 
     if (signUpError) {
@@ -183,19 +186,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return { error: "Failed to create user account" };
     }
 
-    const { error: userError } = await supabase.from("users").insert({
-      id: authData.user.id,
-    });
-
-    if (userError) {
-      setError("Failed to create user profile");
-      setLoading(false);
-      return { error: userError.message };
-    }
-
-    setAuthUser(authData.user);
-    await fetchUser();
+    // Don't create the public user profile yet - wait for email verification
     setLoading(false);
+    return { success: true };
   };
 
   const isAuthenticated = !!authUser;
