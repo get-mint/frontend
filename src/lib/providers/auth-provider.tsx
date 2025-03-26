@@ -57,6 +57,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       setAuthUser(session?.user || undefined);
+
+      if (session?.user) {
+        updateLastActive(session.user.id);
+      }
     } catch (error) {
       console.error("Error during auth initialization:", error);
       setAuthUser(undefined);
@@ -116,6 +120,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data: subscription } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setAuthUser(session?.user || undefined);
+
+        if (session?.user) {
+          updateLastActive(session.user.id);
+        }
       }
     );
 
@@ -123,6 +131,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       subscription?.subscription.unsubscribe();
     };
   }, []);
+
+  const updateLastActive = async (userId: string) => {
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from("users")
+        .update({ last_active_at: new Date().toISOString() })
+        .eq("id", userId);
+
+      if (error) {
+        console.error("Failed to update last_active_at:", error);
+      }
+    } catch (error) {
+      console.error("Error updating last_active_at:", error);
+    }
+  };
 
   const logIn = async (email: string, password: string) => {
     setError(null);
@@ -142,6 +166,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     setAuthUser(data.user);
+
+    if (data.user) {
+      updateLastActive(data.user.id);
+    }
+
     await fetchUser();
     setLoading(false);
   };

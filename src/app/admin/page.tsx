@@ -39,9 +39,24 @@ export default function DashboardPage() {
         return;
       }
 
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      const thirtyDaysAgoISOString = thirtyDaysAgo.toISOString();
+
+      const { count: activeCount, error: activeError } = await supabase
+        .from("users")
+        .select("*", { count: "exact", head: true })
+        .gte("last_active_at", thirtyDaysAgoISOString);
+
+      if (activeError) {
+        console.error("Error fetching active user count:", activeError);
+      }
+
       setStats({
         totalUsers: count || 0,
-        activeUsers: "N/A (placeholder)",
+        activeUsers: activeError
+          ? "Error loading"
+          : (activeCount || 0).toString(),
         totalTransactions: "N/A (placeholder)",
       });
 
