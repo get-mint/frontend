@@ -8,6 +8,29 @@ import { ArrowRight, Info, Leaf } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
+const stats = [
+  {
+    value: "50%",
+    label: "Commission Split",
+    description: "We split our commission with you 50/50. When merchants pay us for bringing them customers, you get half of what we earn.",
+  },
+  {
+    value: "5$",
+    label: "Minimum Payout",
+    description: "You can withdraw your earnings once you reach $5. No need to wait for months to access your money.",
+  },
+  {
+    value: "100%",
+    label: "Automated",
+    description: "Our system automatically detects eligible purchases and applies cash back. No manual work needed.",
+  },
+];
 
 function ParticleField() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -62,6 +85,8 @@ function ParticleField() {
 }
 
 export function Hero() {
+  const [openCard, setOpenCard] = useState<string | null>(null);
+
   return (
     <div className="relative min-h-screen flex items-center justify-center">
       <div className="absolute inset-0 from-background to-muted">
@@ -119,26 +144,41 @@ export function Hero() {
             </div>
 
             <div className="flex flex-row gap-4 sm:gap-8 mb-6 justify-center">
-              {[
-                ["50%", "Commission Split"],
-                ["5$", "Minimum Payout"],
-                ["100%", "Automated"],
-              ].map(([value, label]) => (
-                <Card
-                  key={label}
-                  className="relative animate-in fade-in slide-in-from-top-4 duration-700 bg-card/5 backdrop-blur-xl border-border flex-1 max-w-[200px] group cursor-pointer"
+              {stats.map((stat) => (
+                <HoverCard 
+                  key={stat.label} 
+                  openDelay={0}
+                  closeDelay={0}
                 >
-                  <CardContent>
-                    <div className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">
-                      {value}
+                  <HoverCardTrigger asChild>
+                    <Card className="relative animate-in fade-in slide-in-from-top-4 duration-700 bg-card/5 backdrop-blur-xl border-border flex-1 max-w-[200px] group cursor-pointer">
+                      <CardContent>
+                        <div className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">
+                          {stat.value}
+                        </div>
+                        <div className="text-sm sm:text-md text-muted-foreground">
+                          {stat.label}
+                        </div>
+                        <Info className="size-4 absolute top-3 right-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      </CardContent>
+                    </Card>
+                  </HoverCardTrigger>
+                  <HoverCardContent 
+                    className="w-80 bg-white/5 dark:bg-black/5 backdrop-blur-2xl border border-white/20 dark:border-white/10 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(255,255,255,0.1)] rounded-xl"
+                    align="center"
+                    sideOffset={5}
+                    forceMount
+                  >
+                    <div className="flex justify-between space-x-4 p-2">
+                      <div className="space-y-2">
+                        <h4 className="text-base font-semibold text-primary">{stat.label}</h4>
+                        <p className="text-sm text-foreground/80 leading-relaxed">
+                          {stat.description}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-sm sm:text-md text-muted-foreground">
-                      {label}
-                    </div>
-
-                    <Info className="size-4 absolute top-3 right-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                  </CardContent>
-                </Card>
+                  </HoverCardContent>
+                </HoverCard>
               ))}
             </div>
           </div>
