@@ -16,7 +16,7 @@ import {
 export default function AuthErrorPage() {
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <Card className="max-w-md w-full bg-card/60 backdrop-blur-md">
+      <Card className="max-w-md w-full bg-card/60 backdrop-blur-md shadow-[0_0_50px_-5px_rgba(0,224,143,0.5)] border-[#00E08F]/40">
         <CardHeader>
           <CardTitle className="text-3xl">Something went wrong</CardTitle>
           <CardDescription className="text-lg">
