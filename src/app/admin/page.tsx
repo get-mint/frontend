@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from "react";
 
+import { LoaderCircle } from "lucide-react";
+
 import { useAuth } from "@/lib/hooks/use-auth";
+import { createClient } from "@/lib/supabase/client/client";
 
 import {
   Card,
@@ -11,27 +14,38 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-
 export default function DashboardPage() {
-  const { user, loading, isAuthenticated } = useAuth();
-  
+  const { user, authUser, isAuthenticated } = useAuth();
+
   const [stats, setStats] = useState({
     totalUsers: 0,
-    activeUsers: 0,
-    totalTransactions: 0,
+    activeUsers: "N/A",
+    totalTransactions: "N/A",
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Mock fetch stats - in real app, replace with actual API call
     const fetchStats = async () => {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      setIsLoading(true);
       
+      const supabase = createClient();
+
+      const { count, error } = await supabase
+        .from("users")
+        .select("*", { count: "exact", head: true });
+
+      if (error) {
+        console.error("Error fetching user count:", error);
+        return;
+      }
+
       setStats({
-        totalUsers: 1243,
-        activeUsers: 876,
-        totalTransactions: 4329,
+        totalUsers: count || 0,
+        activeUsers: "N/A (placeholder)",
+        totalTransactions: "N/A (placeholder)",
       });
+
+      setIsLoading(false);
     };
 
     if (isAuthenticated) {
@@ -39,18 +53,12 @@ export default function DashboardPage() {
     }
   }, [isAuthenticated]);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="p-6 space-y-6">
+  return isLoading ? (
+    <LoaderCircle className="animate-spin size-12" />
+  ) : (
+    <>
       <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="animate-fade-in">
           <CardHeader>
@@ -87,16 +95,23 @@ export default function DashboardPage() {
         <Card className="animate-fade-in animate-delay-300">
           <CardHeader>
             <CardTitle>User Information</CardTitle>
-            <CardDescription>Currently authenticated user details</CardDescription>
+            <CardDescription>
+              Currently authenticated user details
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            {user ? (
+            {user && authUser ? (
               <div className="space-y-2">
-                <p><span className="font-semibold">User ID:</span> {user.id}</p>
-                <p><span className="font-semibold">Created:</span> {new Date(user.created_at).toLocaleDateString()}</p>
-                
-                {/* Display additional user information if available in your AuthContext */}
-                <p className="text-muted-foreground italic">Note: Additional user details like email and address would appear here when available in the database schema.</p>
+                <p>
+                  <span className="font-semibold">User ID:</span> {user.id}
+                </p>
+                <p>
+                  <span className="font-semibold">Email:</span> {authUser.email}
+                </p>
+                <p>
+                  <span className="font-semibold">Created:</span>{" "}
+                  {new Date(user.created_at).toLocaleDateString()}
+                </p>
               </div>
             ) : (
               <p>Not authenticated or user data unavailable</p>
@@ -104,6 +119,6 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </>
   );
 }
