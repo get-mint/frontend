@@ -7,6 +7,7 @@ import { ArrowRight, Info, Leaf } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 function ParticleField() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -77,6 +78,10 @@ export function Hero() {
           }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] max-w-[600px] aspect-square rounded-full bg-gradient-to-r from-primary/30 to-primary-600/30 blur-3xl"
         />
+      </div>
+
+      <div className="absolute top-4 right-4 z-10">
+        <ThemeToggle />
       </div>
 
       <div className="container mx-auto relative px-4 sm:px-6">
