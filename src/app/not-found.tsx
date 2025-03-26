@@ -1,8 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
-import { ArrowLeft, LogIn } from "lucide-react";
+import { ArrowLeft, Home } from "lucide-react";
 
 import {
   Card,
@@ -10,20 +9,19 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-export default function UnauthorizedPage() {
+export default function NotFoundPage() {
   const router = useRouter();
 
   return (
     <div className="min-h-screen flex items-center justify-center">
       <Card className="max-w-md w-full bg-card/60 backdrop-blur-md">
         <CardHeader>
-          <CardTitle className="text-3xl">Access Denied</CardTitle>
+          <CardTitle className="text-3xl">404 - Page Not Found</CardTitle>
           <CardDescription className="text-lg">
-            You don't have permission to access this page.
+            The page you're looking for doesn't exist or has been moved.
           </CardDescription>
         </CardHeader>
 
@@ -37,15 +35,15 @@ export default function UnauthorizedPage() {
             Go Back
           </Button>
           <Button
-            onClick={() => router.push("/auth/login")}
+            onClick={() => router.push("/")}
             variant="outline"
             className="flex-1"
           >
-            <LogIn className="size-4" />
-            Log In
+            <Home className="size-4" />
+            Home
           </Button>
         </CardContent>
       </Card>
     </div>
   );
-}
+} 
