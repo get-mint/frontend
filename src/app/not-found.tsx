@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
 import { ArrowLeft, Home } from "lucide-react";
+import { ParticleField } from "@/components/ui/particle-field";
 
 import {
   Card,
@@ -17,8 +17,9 @@ export default function NotFoundPage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <Card className="max-w-md w-full bg-card/60 backdrop-blur-md">
+    <div className="relative min-h-screen flex items-center justify-center">
+      <ParticleField />
+      <Card className="max-w-md w-full bg-card/60 backdrop-blur-md shadow-[0_0_50px_-5px_rgba(0,224,143,0.5)] border-[#00E08F]/40">
         <CardHeader>
           <CardTitle className="text-3xl">404 - Page Not Found</CardTitle>
           <CardDescription className="text-lg">

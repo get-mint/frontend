@@ -45,48 +45,50 @@ export function Comparison() {
           </p>
         </div>
 
-        <div className="relative">
-          <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 rounded-2xl blur-lg opacity-25" />
-          
-          <div className="relative bg-background border rounded-lg overflow-hidden shadow-sm">
-            <table className="w-full">
-              <thead>
-                <tr>
-                  <th className="border-b border-r p-6 text-left text-lg font-medium text-muted-foreground bg-muted/50 w-[70%]">
-                    Features
-                  </th>
-                  <th className="border-b border-r p-4 text-center text-lg font-medium text-primary bg-muted/50 w-[15%]">
-                    Mint
-                  </th>
-                  <th className="border-b p-4 text-center text-lg font-medium text-amber-500 bg-muted/50 w-[15%]">
-                    Others
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonFeatures.map((feature, index) => (
-                  <tr key={feature.name}>
-                    <td className={`border-r p-6 text-muted-foreground ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
-                      {feature.name}
-                    </td>
-                    <td className={`border-r p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
-                      <div className="flex justify-center">
-                        <div className="w-5 h-5 text-emerald-400 drop-shadow-[0_0_3px_rgba(52,211,153,0.7)]">
-                          {feature.mint ? <Check size={18} /> : <Minus size={18} />}
-                        </div>
-                      </div>
-                    </td>
-                    <td className={`p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
-                      <div className="flex justify-center">
-                        <div className="w-5 h-5 text-muted-foreground">
-                          {feature.others ? <Check size={18} /> : <X size={18} />}
-                        </div>
-                      </div>
-                    </td>
+        <div className="max-w-4xl mx-auto">
+          <div className="relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 rounded-2xl blur-lg opacity-25" />
+            
+            <div className="relative bg-background border rounded-lg overflow-hidden shadow-sm">
+              <table className="w-full">
+                <thead>
+                  <tr>
+                    <th className="border-b border-r p-6 text-left text-lg font-medium text-muted-foreground bg-muted/50 w-[70%]">
+                      Features
+                    </th>
+                    <th className="border-b border-r p-4 text-center text-lg font-medium text-primary bg-muted/50 w-[15%]">
+                      Mint
+                    </th>
+                    <th className="border-b p-4 text-center text-lg font-medium text-amber-500 bg-muted/50 w-[15%]">
+                      Others
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {comparisonFeatures.map((feature, index) => (
+                    <tr key={feature.name}>
+                      <td className={`border-r p-6 text-foreground ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                        {feature.name}
+                      </td>
+                      <td className={`border-r p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                        <div className="flex justify-center">
+                          <div className="w-5 h-5 text-emerald-400 drop-shadow-[0_0_3px_rgba(52,211,153,0.7)]">
+                            {feature.mint ? <Check size={18} /> : <Minus size={18} />}
+                          </div>
+                        </div>
+                      </td>
+                      <td className={`p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                        <div className="flex justify-center">
+                          <div className="w-5 h-5 text-foreground">
+                            {feature.others ? <Check size={18} /> : <X size={18} />}
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
