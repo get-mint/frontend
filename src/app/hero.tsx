@@ -85,6 +85,8 @@ function ParticleField() {
 }
 
 export function Hero() {
+  const [openCard, setOpenCard] = useState<string | null>(null);
+
   return (
     <div className="relative min-h-screen flex items-center justify-center">
       <div className="absolute inset-0 from-background to-muted">
@@ -143,7 +145,11 @@ export function Hero() {
 
             <div className="flex flex-row gap-4 sm:gap-8 mb-6 justify-center">
               {stats.map((stat) => (
-                <HoverCard key={stat.label}>
+                <HoverCard 
+                  key={stat.label} 
+                  openDelay={0}
+                  closeDelay={0}
+                >
                   <HoverCardTrigger asChild>
                     <Card className="relative animate-in fade-in slide-in-from-top-4 duration-700 bg-card/5 backdrop-blur-xl border-border flex-1 max-w-[200px] group cursor-pointer">
                       <CardContent>
@@ -157,11 +163,16 @@ export function Hero() {
                       </CardContent>
                     </Card>
                   </HoverCardTrigger>
-                  <HoverCardContent className="w-80">
+                  <HoverCardContent 
+                    className="w-80 bg-background/40 dark:bg-background/20 backdrop-blur-xl border border-white/10 shadow-xl"
+                    align="center"
+                    sideOffset={5}
+                    forceMount
+                  >
                     <div className="flex justify-between space-x-4">
-                      <div>
+                      <div className="space-y-1">
                         <h4 className="text-sm font-semibold text-primary">{stat.label}</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-foreground/90">
                           {stat.description}
                         </p>
                       </div>
