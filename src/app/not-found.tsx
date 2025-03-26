@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+
 import { ArrowLeft, Home } from "lucide-react";
 
 import {
@@ -46,4 +47,4 @@ export default function NotFoundPage() {
       </Card>
     </div>
   );
-} 
+}
