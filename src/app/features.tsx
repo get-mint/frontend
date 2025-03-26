@@ -1,4 +1,4 @@
-import { Banknote, Globe2, Bot, DollarSign } from "lucide-react";
+import { Banknote, Bot, DollarSign, Zap } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -6,30 +6,30 @@ import { Badge } from "@/components/ui/badge";
 const features = [
   {
     Icon: Banknote,
-    title: "Instant Cash Back",
+    title: "Real cash back",
     description:
-      "Get your money instantly. No waiting periods, no minimum thresholds.",
-    stats: ["50%", "commission split"],
+      "Get your cash back in cash. No points, no gift cards, no hidden fees.",
+    stats: ["5$", "minimum withdrawal"],
   },
   {
-    Icon: Globe2,
-    title: "Universal Coverage",
+    Icon: Zap,
+    title: "Instant Processing",
     description:
-      "Works with all major online retailers and thousands of others.",
-    stats: ["5000+", "partner stores"],
+      "Quick and simple cash back processing.",
+    stats: ["48h", "processing time"],
   },
   {
     Icon: Bot,
-    title: "Smart Detection",
+    title: "Smart detection",
     description: "Automatically finds and applies the best cash back rates.",
     stats: ["100%", "automated"],
   },
   {
     Icon: DollarSign,
-    title: "Real Cash",
+    title: "Direct to Wallet",
     description:
-      "Get real money, not points or gift cards. It's your money, after all.",
-    stats: ["$$$", "straight to your wallet"],
+      "Your cash back goes straight to your wallet. No middleman, no hassle.",
+    stats: ["0%", "fees"],
   },
 ];
 
