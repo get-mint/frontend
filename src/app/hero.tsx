@@ -64,6 +64,7 @@ export function Hero() {
   return (
     <div className="relative min-h-screen flex items-center justify-center">
       <div className="absolute inset-0 from-background to-muted">
+        <ParticleField />
         <motion.div
           animate={{
             scale: [1, 1.2, 1],

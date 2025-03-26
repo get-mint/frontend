@@ -51,18 +51,18 @@ export function HowItWorks() {
               <div key={step.title} className="relative">
                 <div
                   className={`
-                  flex items-center gap-12 
+                  flex items-center gap-6 md:gap-12 
                   ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}
                 `}
                 >
                   <div className="relative flex-none">
                     <div
                       className={`
-                      w-32 h-32 rounded-3xl bg-gradient-to-br ${step.color}
+                      size-16 md:size-32 rounded-xl md:rounded-3xl bg-gradient-to-br ${step.color}
                       flex items-center justify-center
                     `}
                     >
-                      <span className="text-6xl font-bold text-primary/40">
+                      <span className="text-4xl md:text-6xl font-bold text-primary/40">
                         {index + 1}
                       </span>
                     </div>
