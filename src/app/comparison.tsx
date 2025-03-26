@@ -67,7 +67,7 @@ export function Comparison() {
                 <tbody>
                   {comparisonFeatures.map((feature, index) => (
                     <tr key={feature.name}>
-                      <td className={`border-r p-6 text-muted-foreground ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
+                      <td className={`border-r p-6 text-foreground ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
                         {feature.name}
                       </td>
                       <td className={`border-r p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
@@ -79,7 +79,7 @@ export function Comparison() {
                       </td>
                       <td className={`p-4 ${index !== comparisonFeatures.length - 1 ? 'border-b' : ''}`}>
                         <div className="flex justify-center">
-                          <div className="w-5 h-5 text-muted-foreground">
+                          <div className="w-5 h-5 text-foreground">
                             {feature.others ? <Check size={18} /> : <X size={18} />}
                           </div>
                         </div>
