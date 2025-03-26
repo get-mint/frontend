@@ -27,7 +27,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchStats = async () => {
       setIsLoading(true);
-      
+
       const supabase = createClient();
 
       const { count, error } = await supabase
@@ -57,10 +57,10 @@ export default function DashboardPage() {
     <LoaderCircle className="animate-spin size-12" />
   ) : (
     <>
-      <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold">Admin</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="animate-fade-in">
+        <Card className="animate-in fade-in zoom-in-95">
           <CardHeader>
             <CardTitle>Total Users</CardTitle>
             <CardDescription>All registered users</CardDescription>
@@ -70,7 +70,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="animate-fade-in">
+        <Card className="animate-in fade-in zoom-in-95">
           <CardHeader>
             <CardTitle>Active Users</CardTitle>
             <CardDescription>Users active in last 30 days</CardDescription>
@@ -80,7 +80,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="animate-fade-in">
+        <Card className="animate-in fade-in zoom-in-95">
           <CardHeader>
             <CardTitle>Total Transactions</CardTitle>
             <CardDescription>All processed transactions</CardDescription>
@@ -92,7 +92,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="mt-6">
-        <Card className="animate-fade-in animate-delay-300">
+        <Card className="animate-in fade-in zoom-in-95">
           <CardHeader>
             <CardTitle>User Information</CardTitle>
             <CardDescription>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { LucideIcon } from "lucide-react";
+import { Leaf, LucideIcon } from "lucide-react";
 
 import {
   Sidebar,
@@ -41,6 +41,7 @@ export function AppSidebar({
           <SidebarMenuItem>
             <Link href={headerLink} passHref legacyBehavior>
               <SidebarMenuButton className="bg-muted py-6 px-4 text-lg transition-all duration-150 cursor-pointer">
+                <Leaf className="h-5 w-5" />
                 <span className="text-base font-semibold">{headerTitle}</span>
               </SidebarMenuButton>
             </Link>
