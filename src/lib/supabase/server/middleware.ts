@@ -65,13 +65,12 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
-  // Protect admin routes
   if (request.nextUrl.pathname.startsWith("/admin")) {
     if (!isAuthenticated) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
 
-    const hasAdminRole = await checkRole(supabase, ["admin"]);
+    const hasAdminRole = await checkRole(supabase, ["Admin"]);
     if (!hasAdminRole) {
       return NextResponse.redirect(new URL("/unauthorized", request.url));
     }

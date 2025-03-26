@@ -7,16 +7,17 @@ export async function GET(request: Request) {
 
   if (code) {
     const supabase = await createClient();
-    
-    // Exchange the code for a session
-    const { data: { session }, error: sessionError } = await supabase.auth.exchangeCodeForSession(code);
-    
+
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.exchangeCodeForSession(code);
+
     if (sessionError || !session?.user?.id) {
       console.error("Error exchanging code for session:", sessionError);
       return NextResponse.redirect(new URL("/auth/error", requestUrl.origin));
     }
 
-    // Create the public user profile
     const { error: profileError } = await supabase
       .from("users")
       .insert({
@@ -30,10 +31,8 @@ export async function GET(request: Request) {
       return NextResponse.redirect(new URL("/auth/error", requestUrl.origin));
     }
 
-    // Success! Redirect to dashboard
-    return NextResponse.redirect(new URL("/dashboard", requestUrl.origin));
+    return NextResponse.redirect(new URL("/auth/login", requestUrl.origin));
   }
 
-  // No code provided, redirect to error page
   return NextResponse.redirect(new URL("/auth/error", requestUrl.origin));
-} 
+}

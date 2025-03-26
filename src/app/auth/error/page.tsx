@@ -1,31 +1,44 @@
 "use client";
 
+import Link from "next/link";
+
+import { LogIn, UserPlus } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 
 export default function AuthErrorPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex flex-col items-center text-center gap-4">
-              <h1 className="text-2xl font-bold">Something went wrong</h1>
-              <p className="text-balance text-muted-foreground">
-                There was an error confirming your email. This could happen if the link has expired or has already been used.
-              </p>
-              <div className="flex flex-col gap-2 w-full">
-                <Button asChild className="w-full">
-                  <a href="/auth/login">Try logging in</a>
-                </Button>
-                <Button variant="outline" asChild className="w-full">
-                  <a href="/auth/signup">Try signing up again</a>
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+    <div className="min-h-screen flex items-center justify-center">
+      <Card className="max-w-md w-full bg-card/60 backdrop-blur-md">
+        <CardHeader>
+          <CardTitle className="text-3xl">Something went wrong</CardTitle>
+          <CardDescription className="text-lg">
+            There was an error confirming your email. This could happen if the
+            link has expired or has already been used.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-row gap-4">
+          <Button variant="outline" asChild className="flex-1">
+            <Link href="/auth/login">
+              <LogIn className="size-4 mr-2" />
+              Log In
+            </Link>
+          </Button>
+          <Button variant="outline" asChild className="flex-1">
+            <Link href="/auth/signup">
+              <UserPlus className="size-4 mr-2" />
+              Sign Up
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
-} 
+}

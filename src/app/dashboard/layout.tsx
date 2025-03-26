@@ -15,9 +15,9 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import { AdminSidebar } from "./sidebar";
+import { DashboardSidebar } from "./sidebar";
 
-export default function AdminLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -35,14 +35,14 @@ export default function AdminLayout({
     >
       <SidebarProvider>
         <div className="flex h-screen w-screen bg-background">
-          <AdminSidebar />
+          <DashboardSidebar />
           <div className="flex-1 w-full">
             <div className="flex items-center gap-4 px-5 pt-5">
               <SidebarTrigger />
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem>
-                    <BreadcrumbLink href="/admin">Dashboard</BreadcrumbLink>
+                    <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
                   </BreadcrumbItem>
                   {pathSegments.slice(1).map((segment, index) => (
                     <React.Fragment key={segment}>

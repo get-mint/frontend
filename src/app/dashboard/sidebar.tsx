@@ -6,17 +6,17 @@ import { AppSidebar } from "@/components/layout/sidebar";
 const items = [
   {
     title: "Dashboard",
-    url: "/admin",
+    url: "/dashboard",
     icon: LayoutDashboard,
   },
 ];
 
-export function AdminSidebar() {
+export function DashboardSidebar() {
   return (
     <AppSidebar
       items={items}
       headerIcon={Leaf}
-      headerTitle="Mint - Admin"
+      headerTitle="Mint"
       headerLink="/dashboard"
     />
   );
