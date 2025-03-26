@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import { LucideIcon } from "lucide-react";
 
 import {
@@ -22,21 +23,15 @@ interface SidebarItem {
   icon: LucideIcon;
 }
 
-interface AppSidebarProps {
-  items: SidebarItem[];
-  headerIcon: LucideIcon;
-  headerTitle: string;
-  headerLink: string;
-  headerClassName?: string;
-}
-
 export function AppSidebar({
   items,
-  headerIcon: HeaderIcon,
   headerTitle,
   headerLink,
-  headerClassName = "bg-muted",
-}: AppSidebarProps) {
+}: {
+  items: SidebarItem[];
+  headerTitle: string;
+  headerLink: string;
+}) {
   const pathname = usePathname();
 
   return (
@@ -45,8 +40,7 @@ export function AppSidebar({
         <SidebarMenu>
           <SidebarMenuItem>
             <Link href={headerLink} passHref legacyBehavior>
-              <SidebarMenuButton className={`${headerClassName} py-6 px-4 text-lg transition-all duration-150 cursor-pointer`}>
-                <HeaderIcon className="h-5 w-5" />
+              <SidebarMenuButton className="bg-muted py-6 px-4 text-lg transition-all duration-150 cursor-pointer">
                 <span className="text-base font-semibold">{headerTitle}</span>
               </SidebarMenuButton>
             </Link>
@@ -78,4 +72,4 @@ export function AppSidebar({
       </SidebarContent>
     </Sidebar>
   );
-} 
+}

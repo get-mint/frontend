@@ -1,6 +1,7 @@
 "use client";
 
-import { Leaf, LayoutDashboard } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
+
 import { AppSidebar } from "@/components/layout/sidebar";
 
 const items = [
@@ -13,11 +14,6 @@ const items = [
 
 export function DashboardSidebar() {
   return (
-    <AppSidebar
-      items={items}
-      headerIcon={Leaf}
-      headerTitle="Mint"
-      headerLink="/dashboard"
-    />
+    <AppSidebar items={items} headerTitle="Mint" headerLink="/dashboard" />
   );
 }
