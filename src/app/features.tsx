@@ -15,8 +15,7 @@ const features = [
   {
     Icon: Zap,
     title: "Instant Processing",
-    description:
-      "Quick and simple gift card processing.",
+    description: "Quick and simple gift card processing.",
     stats: ["48h", "processing time"],
   },
   {
@@ -36,9 +35,9 @@ const features = [
 
 export function Features() {
   const { symbol } = useCurrency();
-  
+
   return (
-    <section className="relative py-16 overflow-hidden">      
+    <section className="relative py-16 overflow-hidden">
       <div className="container relative z-10 mx-auto px-4">
         <div className="text-center mb-16">
           <Badge
@@ -57,17 +56,21 @@ export function Features() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {features.map((feature) => (
-            <div key={feature.title} className="group relative">
+            <div key={feature.title} className="group relative h-full">
               <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/50 via-primary to-primary/50 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-300" />
-              <Card className="relative">
-                <CardContent className="p-6">
+              <Card className="relative h-full">
+                <CardContent className="p-6 flex flex-col h-full">
                   <feature.Icon className="size-8 mb-4 text-primary" />
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground mb-4">{feature.description}</p>
+                  <h3 className="text-xl font-semibold mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground mb-4 flex-grow">
+                    {feature.description}
+                  </p>
                   <div className="flex gap-4">
                     {feature.stats.map((stat) => (
                       <div key={stat} className="text-sm text-muted-foreground">
-                        {stat.replace('$', symbol)}
+                        {stat.replace("$", symbol)}
                       </div>
                     ))}
                   </div>
