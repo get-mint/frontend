@@ -1,21 +1,22 @@
-import { Banknote, Bot, DollarSign, Zap, Info } from "lucide-react";
+import { Banknote, Bot, Gift, Zap, Info } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useCurrency } from "@/lib/utils/currency";
 
 const features = [
   {
-    Icon: Banknote,
-    title: "Real cash back",
+    Icon: Gift,
+    title: "Gift Card Rewards",
     description:
-      "Get your cash back in cash. No points, no gift cards, no hidden fees.",
-    stats: ["5$", "minimum withdrawal"],
+      "Get your rewards in popular gift cards. Choose from a wide variety of retailers and brands.",
+    stats: ["5$", "minimum redemption"],
   },
   {
     Icon: Zap,
     title: "Instant Processing",
     description:
-      "Quick and simple cash back processing.",
+      "Quick and simple gift card processing.",
     stats: ["48h", "processing time"],
   },
   {
@@ -25,15 +26,17 @@ const features = [
     stats: ["100%", "automated"],
   },
   {
-    Icon: DollarSign,
+    Icon: Banknote,
     title: "Direct to Wallet",
     description:
-      "Your cash back goes straight to your wallet. No middleman, no hassle.",
+      "Your rewards go straight to your digital wallet. No middleman, no hassle.",
     stats: ["0%", "fees"],
   },
 ];
 
 export function Features() {
+  const { symbol } = useCurrency();
+  
   return (
     <section className="relative py-16 overflow-hidden">      
       <div className="container relative z-10 mx-auto px-4">
@@ -48,7 +51,7 @@ export function Features() {
             Features that set us apart
           </h2>
           <p className="text-xl text-muted-foreground">
-            Everything you need to maximize your cash back
+            Everything you need to maximize your rewards
           </p>
         </div>
 
@@ -58,26 +61,16 @@ export function Features() {
               <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/50 via-primary to-primary/50 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-300" />
               <Card className="relative">
                 <CardContent className="p-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="p-2 rounded-lg bg-primary/10">
-                      <feature.Icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground">
-                      {feature.title}
-                    </h3>
+                  <feature.Icon className="size-8 mb-4 text-primary" />
+                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground mb-4">{feature.description}</p>
+                  <div className="flex gap-4">
+                    {feature.stats.map((stat) => (
+                      <div key={stat} className="text-sm text-muted-foreground">
+                        {stat.replace('$', symbol)}
+                      </div>
+                    ))}
                   </div>
-                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-                    {feature.description}
-                  </p>
-                  <div className="flex items-baseline space-x-2">
-                    <span className="text-2xl font-bold text-primary">
-                      {feature.stats[0]}
-                    </span>
-                    <span className="text-sm text-muted-foreground">
-                      {feature.stats[1]}
-                    </span>
-                  </div>
-                  <Info className="size-4 absolute top-3 right-3 text-muted-foreground" />
                 </CardContent>
               </Card>
             </div>
