@@ -34,9 +34,6 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey="theme-preference"
           >
-            <p>
-              Impact-Site-Verification: 6ce7c87f-72db-4c66-ba0e-fad7cc15a50c
-            </p>
             {children}
           </ThemeProvider>
           <Toaster />
