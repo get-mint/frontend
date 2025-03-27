@@ -72,9 +72,9 @@ export default function DashboardPage() {
     <LoaderCircle className="animate-spin size-12" />
   ) : (
     <>
-      <h1 className="text-3xl font-bold">Admin</h1>
+      <h1 className="text-4xl font-bold">Admin</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <Card className="animate-in fade-in zoom-in-95">
           <CardHeader>
             <CardTitle>Total Users</CardTitle>
@@ -106,7 +106,7 @@ export default function DashboardPage() {
         </Card>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-5">
         <Card className="animate-in fade-in zoom-in-95">
           <CardHeader>
             <CardTitle>User Information</CardTitle>
