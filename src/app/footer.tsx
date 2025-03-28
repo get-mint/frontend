@@ -26,9 +26,9 @@ const footerData = {
     {
       title: "Legal",
       links: [
-        { href: "/privacy", label: "Privacy Policy" },
-        { href: "/terms", label: "Terms of Service" },
-        { href: "/cookies", label: "Cookie Policy" },
+        { href: "/info/legal/privacy-policy", label: "Privacy Policy" },
+        { href: "/info/legal/terms-of-service", label: "Terms of Service" },
+        { href: "/info/legal/cookie-policy", label: "Cookie Policy" },
       ],
     },
   ],
