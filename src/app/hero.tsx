@@ -18,17 +18,20 @@ const stats = [
   {
     value: "50%",
     label: "Commission Split",
-    description: "We split our commission with you 50/50. When merchants pay us for bringing them customers, you get half of what we earn.",
+    description:
+      "We split our commission with you 50/50. When merchants pay us for bringing them customers, you get half of what we earn.",
   },
   {
     value: "5$",
     label: "Minimum Payout",
-    description: "You can withdraw your earnings once you reach $5. No need to wait for months to access your money.",
+    description:
+      "You can withdraw your earnings once you reach $5. No need to wait for months to access your money.",
   },
   {
     value: "100%",
     label: "Automated",
-    description: "Our system automatically detects eligible purchases and applies cash back. No manual work needed.",
+    description:
+      "Our system automatically detects eligible purchases and applies cash back. All you need to do is click approve.",
   },
 ];
 
@@ -145,11 +148,7 @@ export function Hero() {
 
             <div className="flex flex-row gap-4 sm:gap-8 mb-6 justify-center">
               {stats.map((stat) => (
-                <HoverCard 
-                  key={stat.label} 
-                  openDelay={0}
-                  closeDelay={0}
-                >
+                <HoverCard key={stat.label} openDelay={0} closeDelay={0}>
                   <HoverCardTrigger asChild>
                     <Card className="relative animate-in fade-in slide-in-from-top-4 duration-700 bg-card/5 backdrop-blur-xl border-border flex-1 max-w-[200px] group cursor-pointer">
                       <CardContent>
@@ -163,7 +162,7 @@ export function Hero() {
                       </CardContent>
                     </Card>
                   </HoverCardTrigger>
-                  <HoverCardContent 
+                  <HoverCardContent
                     className="w-80 bg-white/5 dark:bg-black/5 backdrop-blur-2xl border border-white/20 dark:border-white/10 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(255,255,255,0.1)] rounded-xl"
                     align="center"
                     sideOffset={5}
@@ -171,7 +170,9 @@ export function Hero() {
                   >
                     <div className="flex justify-between space-x-4 p-2">
                       <div className="space-y-2">
-                        <h4 className="text-base font-semibold text-primary">{stat.label}</h4>
+                        <h4 className="text-base font-semibold text-primary">
+                          {stat.label}
+                        </h4>
                         <p className="text-sm text-foreground/80 leading-relaxed">
                           {stat.description}
                         </p>
