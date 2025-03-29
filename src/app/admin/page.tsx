@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { LoaderCircle } from "lucide-react";
 
 import { useAuth } from "@/lib/hooks/use-auth";
-import { createClient } from "@/lib/supabase/client/client";
+import { createClient } from "@/lib/supabase/client";
 
 import {
   Card,
