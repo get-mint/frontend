@@ -44,7 +44,7 @@ const footerData = {
     },
     {
       name: "GitHub",
-      href: "#",
+      href: "https://github.com/get-mint",
       icon: (
         <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
           <path
