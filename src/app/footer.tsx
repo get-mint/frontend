@@ -18,9 +18,9 @@ const footerData = {
     {
       title: "Company",
       links: [
-        { href: "/about", label: "About Us" },
-        { href: "/careers", label: "Careers" },
-        { href: "/contact", label: "Contact" },
+        { href: "/info/company/about", label: "About Us" },
+        { href: "/info/company/careers", label: "Careers" },
+        { href: "/info/company/contact", label: "Contact" },
       ],
     },
     {
