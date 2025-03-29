@@ -15,12 +15,8 @@ const footerData = {
       title: "Product",
       links: [
         { href: "/download", label: "Download" },
-<<<<<<< HEAD
-        { href: "/info/product/security", label: "Security" },
-=======
         { href: "#features", label: "Features", isScroll: true },
         { href: "/info/security", label: "Security" },
->>>>>>> 194d84c (fix: Fixed footer pages)
       ],
     },
     {
