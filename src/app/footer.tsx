@@ -24,7 +24,7 @@ const footerData = {
       links: [
         { href: "/info/company/about", label: "About Us" },
         { href: "/info/company/careers", label: "Careers" },
-        { href: "/info/company/contact", label: "Contact" },
+        { href: "/info/company/faq", label: "FAQ" },
       ],
     },
     {
