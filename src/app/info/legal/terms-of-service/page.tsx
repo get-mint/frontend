@@ -1,195 +1,137 @@
 import { Leaf } from "lucide-react";
-import { InfoPage } from "@/components/templates/info-page";
-
-const sections = [
-  {
-    title: "Ownership of Site; Agreement to Terms of Use",
-    content: (
-      <div className="space-y-4">
-        <p>
-          These Terms and Conditions of Use ("Terms of Use") apply to the Mint
-          website located at www.getmint.lol and all associated platforms,
-          including the Mint browser extension and mobile application
-          (collectively, the "Site"). The Site is the property of Mint
-          Technologies LLC ("Mint") and its licensors. BY USING THE SITE, YOU
-          AGREE TO THESE TERMS OF USE; IF YOU DO NOT AGREE, DO NOT USE THE SITE.
-        </p>
-        <p>
-          Mint reserves the right, at its sole discretion, to change, modify,
-          add, or remove portions of these Terms of Use at any time. It is your
-          responsibility to check these Terms periodically for changes. Your
-          continued use of the Site following the posting of changes will mean
-          that you accept and agree to the changes.
-        </p>
-        <p>
-          As long as you comply with these Terms, Mint grants you a personal,
-          non-exclusive, non-transferable, limited privilege to access and use
-          the Site.
-        </p>
-      </div>
-    ),
-  },
-  {
-    title: "Affiliate Marketing Disclaimer",
-    content: (
-      <p>
-        Mint earns affiliate commissions through links and coupons offered via
-        our browser extension and website. When you interact with an offer or
-        make a purchase through a linked retailer, we may earn a commission.
-        While we strive to provide accurate and helpful discounts, we do not
-        guarantee that our coupons or offers will always be the best or most
-        up-to-date.
-      </p>
-    ),
-  },
-  {
-    title: "Content",
-    content: (
-      <p>
-        All content—including but not limited to text, graphics, logos, icons,
-        images, audio clips, data compilations, and software—on this Site is
-        owned or licensed by Mint and is protected by U.S. and international
-        copyright, trademark, and other intellectual property laws. No part of
-        the Site may be copied, republished, distributed, or exploited for
-        commercial purposes without Mint's prior written consent.
-      </p>
-    ),
-  },
-  {
-    title: "Use of the Site",
-    content: (
-      <div className="space-y-4">
-        <p>
-          You may not use the Site or any services offered through the Site for
-          any unlawful purpose. Specifically, you agree not to:
-        </p>
-        <ul className="list-disc pl-6 space-y-2">
-          <li>Attempt unauthorized access to any part of the Site.</li>
-          <li>
-            Use bots, scrapers, spiders, or other automated tools to access the
-            Site.
-          </li>
-          <li>
-            Engage in fraudulent activity, including artificial interactions
-            with affiliate links.
-          </li>
-          <li>
-            Interfere with the operation of the Site or any user experience.
-          </li>
-          <li>
-            Impersonate any person or misrepresent your affiliation with Mint.
-          </li>
-        </ul>
-        <p>
-          Mint reserves the right to block any activity that we believe is
-          harmful, abusive, or unlawful.
-        </p>
-      </div>
-    ),
-  },
-  {
-    title: "Accounts, Passwords, and Security",
-    content: (
-      <p>
-        To use certain features of the Site, you may be required to create an
-        account. You are solely responsible for maintaining the confidentiality
-        of your account information. You agree to notify Mint immediately of any
-        unauthorized use of your account or other security breaches.
-      </p>
-    ),
-  },
-  {
-    title: "Privacy",
-    content: (
-      <p>
-        Your use of the Site is also subject to our Privacy Policy. By using the
-        Site, you consent to the collection, use, and disclosure of your
-        personal data as described therein.
-      </p>
-    ),
-  },
-  {
-    title: "External Links and Third-Party Retailers",
-    content: (
-      <p>
-        The Site may link to third-party retailer sites. Mint does not control
-        or endorse these sites and is not responsible for their content,
-        services, or practices. Your interactions with third-party sites are
-        governed by their own terms and privacy policies.
-      </p>
-    ),
-  },
-  {
-    title: "Disclaimer",
-    content: (
-      <p className="font-medium">
-        MINT MAKES NO WARRANTIES REGARDING THE FUNCTIONALITY, ACCURACY, OR
-        RELIABILITY OF THE SITE OR THE EXTENSION. THE SITE IS PROVIDED ON AN
-        "AS-IS" AND "AS-AVAILABLE" BASIS. YOU USE THE SITE AT YOUR OWN RISK.
-      </p>
-    ),
-  },
-  {
-    title: "Limitation of Liability",
-    content: (
-      <p className="font-medium">
-        TO THE MAXIMUM EXTENT PERMITTED BY LAW, MINT WILL NOT BE LIABLE FOR ANY
-        INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR
-        LOSS OF PROFITS OR DATA, ARISING OUT OF YOUR USE OF THE SITE.
-      </p>
-    ),
-  },
-  {
-    title: "Indemnity",
-    content: (
-      <p>
-        You agree to indemnify and hold harmless Mint, its officers, employees,
-        affiliates, and partners from any claims, losses, damages, liabilities,
-        including legal fees, arising out of your misuse of the Site or
-        violation of these Terms.
-      </p>
-    ),
-  },
-  {
-    title: "Termination",
-    content: (
-      <p>
-        Mint reserves the right to terminate or suspend your access to the Site,
-        without notice, for conduct that violates these Terms or is otherwise
-        harmful to Mint's interests.
-      </p>
-    ),
-  },
-  {
-    title: "Governing Law",
-    content: (
-      <p>
-        These Terms are governed by the laws of the State of New Mexico, USA,
-        without regard to conflict of laws principles. You agree that any legal
-        action or proceeding between you and Mint will be brought exclusively in
-        a court of competent jurisdiction in New Mexico.
-      </p>
-    ),
-  },
-  {
-    title: "Contact Information",
-    content: (
-      <p>
-        For questions or concerns, contact us at:
-        <br />
-        Email: team@getmint.lol
-      </p>
-    ),
-  },
-];
 
 export default function TermsOfServicePage() {
   return (
-    <InfoPage
-      title="Terms of Service"
-      icon={Leaf}
-      sections={sections}
-      className="prose prose-gray dark:prose-invert mx-auto"
-    />
+    <div className="container mx-auto px-4 py-12 max-w-4xl">
+      <div className="flex flex-col items-center mb-12">
+        <div className="flex items-center gap-2 mb-4">
+          <Leaf className="h-8 w-8 text-primary" />
+          <h1 className="text-4xl font-bold">Mint</h1>
+        </div>
+        <p className="text-muted-foreground">Last Updated: March 28, 2025</p>
+      </div>
+
+      <div className="space-y-12">
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
+          <p className="text-muted-foreground">
+            These Terms of Use (the "Agreement") are a contract between you and Mint Technologies Inc. ("Mint") and govern your access to and use of the Mint browser extension (the "Mint Extension"), the Mint website located at www.getmint.lol and all other Mint-branded websites (each, a "Website"), and other software applications and online services provided by Mint (collectively, the "Service").
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Important Notes</h2>
+          <ul className="text-muted-foreground list-disc pl-6 space-y-2">
+            <li>Mint does not use a point-based rewards system. Instead, Mint pays users a percentage of affiliate commission in cash or gift cards earned through purchases made via affiliate links applied automatically by the extension.</li>
+            <li>You must link your Mint account to a valid PayPal or other supported payout method to receive earnings.</li>
+            <li>Mint earnings may expire if you do not cash out within 365 days of accumulation.</li>
+            <li>For more information about payouts and supported retailers, please refer to our Payout FAQ.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Users Based Outside the United States</h2>
+          <p className="text-muted-foreground">
+            Mint currently supports users in the United States only. If you are outside the U.S., you may browse the website, but Mint cash-back features may not be available to you.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Accepting the Terms</h2>
+          <div className="text-muted-foreground space-y-4">
+            <p>
+              By using any portion of the Service, you agree to comply with and be bound by this Agreement. This Agreement applies to you whether you are a "Member" (i.e., you have created a Mint account) or a "Visitor" (i.e., you have not created an account). "You" refers to a Visitor or Member. "We", "us", or "our" refers to Mint.
+            </p>
+            <p>
+              You must be at least 18 years old to use the Service. You represent that you are legally able to form a binding contract. The Service is for personal, non-commercial use.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Amendments to this Agreement</h2>
+          <p className="text-muted-foreground">
+            Mint may update these Terms at any time. Updated terms will be posted at getmint.lol/terms, with the date of last revision. Your continued use of the Service after changes constitutes agreement to the updated terms.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Privacy and Personal Information</h2>
+          <p className="text-muted-foreground">
+            The Service is subject to Mint's privacy practices. Please read our Privacy Policy to understand how we collect, use, and share your information.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Description of the Service</h2>
+          <div className="text-muted-foreground space-y-4">
+            <p>
+              Mint is a browser extension that helps users save money by automatically applying affiliate discounts and codes at checkout and sharing a portion of the commission back with the user as cash or gift card payouts.
+            </p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Mint works with select affiliate programs and partner merchants.</li>
+              <li>Mint earns revenue via affiliate commission when purchases are made using affiliate links.</li>
+              <li>You are paid real cash or gift cards directly—no points, conversions, or minimum redemption hoops.</li>
+              <li>You must be logged in and have the extension active during checkout to qualify for cash-back. Not all stores are eligible, and affiliate tracking may vary by merchant.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Merchant Transactions</h2>
+          <p className="text-muted-foreground">
+            Mint is not responsible for your purchases from third-party merchants. If you have issues with orders, you must contact the merchant directly.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Cash-Back & Payout Terms</h2>
+          <ul className="text-muted-foreground list-disc pl-6 space-y-2">
+            <li>Users can withdraw cash-back earnings via PayPal, Venmo, or supported gift cards.</li>
+            <li>Minimum payout thresholds may apply.</li>
+            <li>Mint reserves the right to withhold or reverse earnings for returns, fraud, or ineligibility.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Referral Program</h2>
+          <p className="text-muted-foreground">
+            Mint may offer cash incentives when you refer new users who sign up and complete qualifying purchases. You may not create fake accounts or use spammy tactics. Abuse will result in disqualification.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Use of the Mint Extension</h2>
+          <p className="text-muted-foreground">
+            You agree not to misuse the Service, reverse-engineer it, or interfere with its functionality. You are responsible for your login and account security.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Security</h2>
+          <p className="text-muted-foreground">
+            Click <a href="/info/security" className="text-primary hover:underline">here</a> to learn more about how Mint keeps your data safe.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Legal Disclaimers, Arbitration, and Governing Law</h2>
+          <p className="text-muted-foreground">
+            By using Mint, you agree to binding arbitration, waive class actions, and agree to jurisdiction in Massachusetts. See the full legal terms in the original section above. To opt out of arbitration, contact: privacy@getmint.lol
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+          <p className="text-muted-foreground">
+            Questions or suggestions? Reach out to us at team@getmint.lol
+          </p>
+        </section>
+      </div>
+
+      <p className="text-muted-foreground text-center mt-12">
+        This Agreement reflects Mint's commitment to transparency and fair use. Your trust means everything to us. 💚
+      </p>
+    </div>
   );
 }
