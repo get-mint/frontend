@@ -185,101 +185,11 @@ const sections = [
 
 export default function TermsOfServicePage() {
   return (
-<<<<<<< HEAD
     <InfoPage
       title="Terms of Service"
       icon={Leaf}
       sections={sections}
       className="prose prose-gray dark:prose-invert mx-auto"
     />
-=======
-    <div className="container mx-auto px-4 py-12 max-w-4xl">
-      <div className="mb-12">
-        <div className="flex flex-col items-center mb-16">
-          <div className="flex items-center gap-2 mb-2">
-            <Leaf className="h-8 w-8 text-primary" />
-            <h1 className="text-4xl font-bold">Mint</h1>
-          </div>
-          <h2 className="text-base font-normal">Terms and Conditions of Use</h2>
-        </div>
-        <p className="text-lg text-muted-foreground max-w-2xl">
-          Please read these terms carefully before using Mint's services. By using our platform, you agree to these terms and conditions.
-        </p>
-      </div>
-
-      <div className="space-y-12">
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Acceptance of Terms</h2>
-          <p className="text-muted-foreground">
-            By accessing or using Mint's services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Cashback Program</h2>
-          <p className="text-muted-foreground mb-4">
-            Our cashback rates and rewards may vary and are subject to change. Cashback is earned on qualifying purchases only. We reserve the right to:
-          </p>
-          <ul className="list-disc ml-6 text-muted-foreground space-y-2">
-            <li>Modify cashback rates</li>
-            <li>Determine qualifying purchases</li>
-            <li>Adjust or reverse cashback for returns or fraudulent activity</li>
-            <li>Set minimum payout thresholds</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">User Conduct</h2>
-          <p className="text-muted-foreground mb-4">
-            Users must not:
-          </p>
-          <ul className="list-disc ml-6 text-muted-foreground space-y-2">
-            <li>Use automated systems to interact with our service</li>
-            <li>Attempt to manipulate cashback or rewards</li>
-            <li>Engage in fraudulent activity</li>
-            <li>Violate any applicable laws or regulations</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Disclaimer of Liability</h2>
-          <p className="text-muted-foreground">
-            Mint is not liable for any direct, indirect, incidental, special, or consequential damages arising from your use of our services. This includes technical issues, merchant relationships, or cashback tracking errors.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Account Security</h2>
-          <p className="text-muted-foreground">
-            You are responsible for maintaining the security of your account credentials. Notify us immediately if you suspect unauthorized access to your account.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Termination</h2>
-          <p className="text-muted-foreground">
-            We reserve the right to suspend or terminate your access to Mint's services at our discretion, particularly in cases of suspected fraud or violation of these terms.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Changes to Terms</h2>
-          <p className="text-muted-foreground">
-            We may modify these terms at any time. Continued use of our services after changes constitutes acceptance of the updated terms.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
-          <p className="text-muted-foreground">
-            If you have any questions about these Terms of Service, please contact us at{" "}
-            <a href="mailto:team@getmint.lol" className="text-primary hover:underline">
-              team@getmint.lol
-            </a>
-          </p>
-        </section>
-      </div>
-    </div>
->>>>>>> 194d84c (fix: Fixed footer pages)
   );
 }
