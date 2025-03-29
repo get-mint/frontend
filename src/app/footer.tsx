@@ -1,4 +1,7 @@
+'use client';
+
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { Leaf } from "lucide-react";
 
 const footerData = {
@@ -11,16 +14,16 @@ const footerData = {
       title: "Product",
       links: [
         { href: "/download", label: "Download" },
-        { href: "/features", label: "Features" },
+        { href: "#features", label: "Features", isScroll: true },
         { href: "/security", label: "Security" },
       ],
     },
     {
       title: "Company",
       links: [
-        { href: "/about", label: "About Us" },
-        { href: "/careers", label: "Careers" },
-        { href: "/contact", label: "Contact" },
+        { href: "/info/company/about", label: "About Us" },
+        { href: "/info/company/careers", label: "Careers" },
+        { href: "/info/company/contact", label: "Contact" },
       ],
     },
     {
@@ -72,7 +75,35 @@ const footerData = {
 };
 
 export function Footer() {
+  const router = useRouter();
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, isScroll?: boolean) => {
+    e.preventDefault();
+
+    if (isScroll) {
+      // If we're not on the home page, first navigate there
+      if (pathname !== '/') {
+        router.push('/');
+        // Wait for navigation to complete before scrolling
+        setTimeout(() => {
+          const element = document.getElementById('features');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      } else {
+        // If we're already on the home page, just scroll
+        const element = document.getElementById('features');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    } else {
+      router.push(href);
+    }
+  };
 
   return (
     <footer className="border-t bg-background mt-24">
@@ -94,12 +125,13 @@ export function Footer() {
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.href}>
-                    <Link
+                    <a
                       href={link.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      onClick={(e) => handleClick(e, link.href, link.isScroll)}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
                     >
                       {link.label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
