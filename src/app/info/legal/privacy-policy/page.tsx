@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Leaf } from "lucide-react";
 
 import { InfoPage } from "@/components/templates/info-page";
@@ -185,6 +186,15 @@ const sections = [
     ),
   },
 ];
+=======
+import { Leaf, ChevronDown } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+>>>>>>> 194d84c (fix: Fixed footer pages)
 
 export default function PrivacyPolicyPage() {
   return (
