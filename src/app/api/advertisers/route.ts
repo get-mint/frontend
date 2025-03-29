@@ -5,6 +5,7 @@ import { createAdminClient } from "@/lib/supabase/server/server";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const domain = searchParams.get("domain");
+  const networkId = searchParams.get("networkId");
 
   if (!domain) {
     return NextResponse.json(
@@ -20,7 +21,7 @@ export async function GET(request: Request) {
     .select(
       `
         *,
-        network: network_id (*)
+        network: networks (*)
       `
     )
     .eq("domain", domain)
@@ -37,5 +38,5 @@ export async function GET(request: Request) {
     );
   }
 
-  return NextResponse.json(data.network);
+  return NextResponse.json(data);
 }
