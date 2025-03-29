@@ -1,5 +1,6 @@
-import { createClient } from "@/lib/supabase/server/server";
 import { NextResponse } from "next/server";
+
+import { createClient, createAdminClient } from "@/lib/supabase/server/server";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
@@ -18,7 +19,9 @@ export async function GET(request: Request) {
       return NextResponse.redirect(new URL("/auth/error", requestUrl.origin));
     }
 
-    const { error: profileError } = await supabase
+    const supabaseAdmin = await createAdminClient();
+
+    const { error: profileError } = await supabaseAdmin
       .from("users")
       .insert({
         id: session.user.id,
