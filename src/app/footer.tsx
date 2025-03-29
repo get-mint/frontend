@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+
 import { Leaf } from "lucide-react";
 
 const footerData = {
@@ -14,8 +15,7 @@ const footerData = {
       title: "Product",
       links: [
         { href: "/download", label: "Download" },
-        { href: "#features", label: "Features", isScroll: true },
-        { href: "/security", label: "Security" },
+        { href: "/info/product/security", label: "Security" },
       ],
     },
     {
@@ -79,30 +79,12 @@ export function Footer() {
   const pathname = usePathname();
   const currentYear = new Date().getFullYear();
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, isScroll?: boolean) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
     e.preventDefault();
-
-    if (isScroll) {
-      // If we're not on the home page, first navigate there
-      if (pathname !== '/') {
-        router.push('/');
-        // Wait for navigation to complete before scrolling
-        setTimeout(() => {
-          const element = document.getElementById('features');
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 100);
-      } else {
-        // If we're already on the home page, just scroll
-        const element = document.getElementById('features');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-    } else {
-      router.push(href);
-    }
+    router.push(href);
   };
 
   return (
@@ -127,8 +109,16 @@ export function Footer() {
                   <li key={link.href}>
                     <a
                       href={link.href}
-                      onClick={(e) => handleClick(e, link.href, link.isScroll)}
+                      onClick={(e) => handleClick(e, link.href)}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                      target={
+                        link.href.startsWith("/info/") ? "_blank" : undefined
+                      }
+                      rel={
+                        link.href.startsWith("/info/")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                     >
                       {link.label}
                     </a>
@@ -150,6 +140,8 @@ export function Footer() {
                   key={social.name}
                   href={social.href}
                   className="text-muted-foreground hover:text-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <span className="sr-only">{social.name}</span>
                   {social.icon}
