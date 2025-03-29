@@ -11,7 +11,7 @@ const footerData = {
       title: "Product",
       links: [
         { href: "/download", label: "Download" },
-        { href: "/features", label: "Features" },
+        { href: "/#features", label: "Features" },
         { href: "/security", label: "Security" },
       ],
     },

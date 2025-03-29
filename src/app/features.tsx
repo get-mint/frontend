@@ -37,7 +37,7 @@ export function Features() {
   const { symbol } = useCurrency();
 
   return (
-    <section className="relative py-16 overflow-hidden">
+    <section id="features" className="relative py-16 overflow-hidden">
       <div className="container relative z-10 mx-auto px-4">
         <div className="text-center mb-16">
           <Badge
