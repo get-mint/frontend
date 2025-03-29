@@ -16,10 +16,10 @@ import {
 
 const stats = [
   {
-    value: "50%",
-    label: "Commission Split",
+    value: "100+",
+    label: "Stores",
     description:
-      "We split our commission with you 50/50. When merchants pay us for bringing them customers, you get half of what we earn.",
+      "We work with over 100+ stores to bring you the best cashback deals.",
   },
   {
     value: "5$",
