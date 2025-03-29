@@ -1,17 +1,23 @@
 import { LucideIcon } from "lucide-react";
 
+interface Section {
+  title: string;
+  content: React.ReactNode;
+}
+
+interface InfoPageProps {
+  title: string;
+  icon: LucideIcon;
+  sections: Section[];
+  className?: string;
+}
+
 export function InfoPage({
   title,
   icon: Icon,
   sections,
-}: {
-  title: string;
-  icon: LucideIcon;
-  sections: {
-    title: string;
-    content: React.ReactNode;
-  }[];
-}) {
+  className,
+}: InfoPageProps) {
   return (
     <div className="container mx-auto px-4 py-12 max-w-4xl">
       <div className="flex flex-col items-center mb-6">
@@ -21,7 +27,7 @@ export function InfoPage({
         </div>
       </div>
 
-      <div className="space-y-8 text-muted-foreground">
+      <div className={className || "space-y-8 text-muted-foreground"}>
         {sections.map((section, index) => (
           <section key={index}>
             <h2 className="text-2xl font-semibold mb-4 text-foreground">
