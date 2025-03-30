@@ -11,7 +11,7 @@ import { Marquee } from "@/components/magicui/marquee";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-function BrandCard({ brand }: { brand: Tables<"advertisers"> }) {
+export function BrandCard({ brand }: { brand: Tables<"advertisers"> }) {
   return (
     <a
       href={`https://${brand.domain}`}
@@ -71,37 +71,33 @@ export function BrandsShowcase() {
   const skeletonRow = Array(5).fill(null);
 
   return (
-    <section className="w-full">
-      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-        <Marquee pauseOnHover className="[--duration:20s]">
-          {isLoading
-            ? skeletonRow.map((_, index) => (
-                <Skeleton
-                  key={`skeleton-1-${index}`}
-                  className="w-32 h-32 rounded-lg"
-                />
-              ))
-            : firstRow.map((brand) => (
-                <BrandCard key={brand.id} brand={brand} />
-              ))}
-        </Marquee>
+    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+      <Marquee pauseOnHover className="[--duration:20s]">
+        {isLoading
+          ? skeletonRow.map((_, index) => (
+              <Skeleton
+                key={`skeleton-1-${index}`}
+                className="w-32 h-32 rounded-lg"
+              />
+            ))
+          : firstRow.map((brand) => <BrandCard key={brand.id} brand={brand} />)}
+      </Marquee>
 
-        <Marquee reverse pauseOnHover className="[--duration:20s]">
-          {isLoading
-            ? skeletonRow.map((_, index) => (
-                <Skeleton
-                  key={`skeleton-2-${index}`}
-                  className="w-32 h-32 rounded-lg"
-                />
-              ))
-            : secondRow.map((brand) => (
-                <BrandCard key={brand.id} brand={brand} />
-              ))}
-        </Marquee>
+      <Marquee reverse pauseOnHover className="[--duration:20s]">
+        {isLoading
+          ? skeletonRow.map((_, index) => (
+              <Skeleton
+                key={`skeleton-2-${index}`}
+                className="w-32 h-32 rounded-lg"
+              />
+            ))
+          : secondRow.map((brand) => (
+              <BrandCard key={brand.id} brand={brand} />
+            ))}
+      </Marquee>
 
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
-      </div>
-    </section>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
+    </div>
   );
 }
