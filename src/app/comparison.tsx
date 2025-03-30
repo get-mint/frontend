@@ -5,21 +5,25 @@ import { Badge } from "@/components/ui/badge";
 const comparisonFeatures = [
   {
     name: "Transparent rewards",
+    description: "You see exactly how much cashback you earn and how we calculate it — no mystery points or hidden conditions.",
     mint: true,
     others: false,
   },
   {
     name: "Low minimum redemption",
+    description: "You only need $5 to cash out, making it easy to actually access your rewards.",
     mint: true,
     others: false,
   },
   {
     name: "Popular gift cards",
+    description: "Choose from brands you actually use — Amazon, Target, Starbucks, and more — or just get cash.",
     mint: true,
     others: false,
   },
   {
     name: "Fast processing",
+    description: "Your money is ready to withdraw within 3 days — not weeks or months like other platforms.",
     mint: true,
     others: false,
   },
@@ -70,14 +74,15 @@ export function Comparison() {
                   {comparisonFeatures.map((feature, index) => (
                     <tr key={feature.name}>
                       <td
-                        className={`border-r p-6 text-foreground ${
-                          index !== comparisonFeatures.length - 1
-                            ? "border-b"
-                            : ""
-                        }`}
-                      >
-                        {feature.name}
-                      </td>
+  className={`border-r p-6 text-foreground ${
+    index !== comparisonFeatures.length - 1 ? "border-b" : ""
+  }`}
+>
+  <div className="font-medium text-base">{feature.name}</div>
+  <div className="text-sm text-muted-foreground mt-1">
+    {feature.description}
+  </div>
+</td>
                       <td
                         className={`border-r p-4 ${
                           index !== comparisonFeatures.length - 1
