@@ -42,23 +42,6 @@ export function BrandCard({ brand }: BrandCardProps) {
   );
 }
 
-function SkeletonBrandCard() {
-  return (
-    <Card
-      className={cn(
-        "w-32 h-32 flex items-center justify-center p-4",
-        "border-border/20 bg-card/10 backdrop-blur-md",
-        "dark:border-border/20 dark:bg-card/15"
-      )}
-    >
-      <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-        <Skeleton className="w-[100px] h-[100px] rounded-full" />
-        <Skeleton className="w-20 h-4" />
-      </div>
-    </Card>
-  );
-}
-
 export function BrandsShowcase() {
   const [brands, setBrands] = useState<Tables<"advertisers">[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -71,6 +54,7 @@ export function BrandsShowcase() {
         .from("advertisers")
         .select("*")
         .neq("image_url", null)
+        .neq("image_url", "")
         .limit(10);
 
       if (error) {
@@ -92,30 +76,32 @@ export function BrandsShowcase() {
   const skeletonRow = Array(5).fill(null);
 
   return (
-    <section className="w-full py-12">
+    <section className="w-full">
       <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
         <Marquee pauseOnHover className="[--duration:20s]">
-          {isLoading ? (
-            skeletonRow.map((_, index) => (
-              <SkeletonBrandCard key={`skeleton-1-${index}`} />
-            ))
-          ) : (
-            firstRow.map((brand) => (
-              <BrandCard key={brand.id} brand={brand} />
-            ))
-          )}
+          {isLoading
+            ? skeletonRow.map((_, index) => (
+                <Skeleton
+                  key={`skeleton-1-${index}`}
+                  className="w-32 h-32 rounded-lg"
+                />
+              ))
+            : firstRow.map((brand) => (
+                <BrandCard key={brand.id} brand={brand} />
+              ))}
         </Marquee>
 
         <Marquee reverse pauseOnHover className="[--duration:20s]">
-          {isLoading ? (
-            skeletonRow.map((_, index) => (
-              <SkeletonBrandCard key={`skeleton-2-${index}`} />
-            ))
-          ) : (
-            secondRow.map((brand) => (
-              <BrandCard key={brand.id} brand={brand} />
-            ))
-          )}
+          {isLoading
+            ? skeletonRow.map((_, index) => (
+                <Skeleton
+                  key={`skeleton-2-${index}`}
+                  className="w-32 h-32 rounded-lg"
+                />
+              ))
+            : secondRow.map((brand) => (
+                <BrandCard key={brand.id} brand={brand} />
+              ))}
         </Marquee>
 
         <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
