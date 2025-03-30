@@ -11,11 +11,7 @@ import { Marquee } from "@/components/magicui/marquee";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface BrandCardProps {
-  brand: Tables<"advertisers">;
-}
-
-export function BrandCard({ brand }: BrandCardProps) {
+function BrandCard({ brand }: { brand: Tables<"advertisers"> }) {
   return (
     <a
       href={`https://${brand.domain}`}
@@ -72,7 +68,6 @@ export function BrandsShowcase() {
   const firstRow = brands.slice(0, brands.length / 2);
   const secondRow = brands.slice(brands.length / 2);
 
-  // Create arrays of 5 skeleton cards for each row
   const skeletonRow = Array(5).fill(null);
 
   return (
