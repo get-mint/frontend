@@ -37,6 +37,7 @@ export type Database = {
       advertisers: {
         Row: {
           created_at: string
+          currency_id: string | null
           domain: string
           id: string
           image_url: string | null
@@ -47,6 +48,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          currency_id?: string | null
           domain: string
           id?: string
           image_url?: string | null
@@ -57,6 +59,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          currency_id?: string | null
           domain?: string
           id?: string
           image_url?: string | null
@@ -67,6 +70,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "advertisers_currency_id_fkey"
+            columns: ["currency_id"]
+            isOneToOne: false
+            referencedRelation: "currencies"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "advertisers_network_id_fkey"
             columns: ["network_id"]
             isOneToOne: false
@@ -74,6 +84,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      currencies: {
+        Row: {
+          acronym: string
+          created_at: string
+          id: string
+          name: string
+          symbol: string
+          updated_at: string
+        }
+        Insert: {
+          acronym: string
+          created_at?: string
+          id?: string
+          name: string
+          symbol: string
+          updated_at?: string
+        }
+        Update: {
+          acronym?: string
+          created_at?: string
+          id?: string
+          name?: string
+          symbol?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       networks: {
         Row: {
@@ -158,16 +195,19 @@ export type Database = {
           created_at: string
           id: string
           last_active_at: string
+          tracking_id: string
         }
         Insert: {
           created_at?: string
           id?: string
           last_active_at?: string
+          tracking_id: string
         }
         Update: {
           created_at?: string
           id?: string
           last_active_at?: string
+          tracking_id?: string
         }
         Relationships: []
       }
