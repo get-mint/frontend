@@ -41,6 +41,15 @@ const formSchema = z.object({
   network_id: z.string().min(1, "Network is required"),
   currency_id: z.string().min(1, "Currency is required"),
   image_url: z.string().url().optional(),
+  metadata: z.string().optional().refine((val) => {
+    if (!val) return true;
+    try {
+      JSON.parse(val);
+      return true;
+    } catch {
+      return false;
+    }
+  }, "Must be valid JSON"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -97,6 +106,7 @@ export function EditAdvertiserDialog({
       network_id: advertiser.network_id || "",
       currency_id: advertiser.currency_id || "",
       image_url: advertiser.image_url || "",
+      metadata: advertiser.metadata ? JSON.stringify(advertiser.metadata, null, 2) : "",
     },
   });
 
@@ -227,6 +237,23 @@ export function EditAdvertiserDialog({
                   <FormControl>
                     <Input
                       placeholder="https://example.com/image.png"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="metadata"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Metadata (JSON)</FormLabel>
+                  <FormControl>
+                    <textarea
+                      className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      placeholder='{"key": "value"}'
                       {...field}
                     />
                   </FormControl>

@@ -16,6 +16,7 @@ import {
   SidebarMenuItem,
   SidebarHeader,
 } from "@/components/ui/sidebar";
+import { SettingsDialog } from "@/components/settings-dialog";
 
 interface SidebarItem {
   title: string;
@@ -45,6 +46,9 @@ export function AppSidebar({
                 <span className="text-base font-semibold">{headerTitle}</span>
               </SidebarMenuButton>
             </Link>
+          </SidebarMenuItem>
+          <SidebarMenuItem className="ml-auto">
+            <SettingsDialog />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
