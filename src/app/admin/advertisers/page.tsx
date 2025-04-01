@@ -135,6 +135,8 @@ export default function AdvertisersPage() {
               advertisers={advertisers}
               isLoading={isLoading}
               onAdvertiserUpdate={handleToggleActive}
+              onAdvertiserEdit={fetchAdvertisers}
+              onAdvertiserDelete={fetchAdvertisers}
             />
             <AdvertisersPagination
               currentPage={currentPage}

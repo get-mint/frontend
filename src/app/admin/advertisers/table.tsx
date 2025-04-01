@@ -1,8 +1,10 @@
 "use client";
 
-import { LoaderCircle, Pencil, Trash2 } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 
 import { Database } from "@/types/supabase";
+import { EditAdvertiserDialog } from "./edit-dialog";
+import { DeleteAdvertiserDialog } from "./delete-dialog";
 
 import {
   Table,
@@ -12,7 +14,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
 type Advertiser = Database["public"]["Tables"]["advertisers"]["Row"] & {
@@ -24,12 +25,16 @@ interface AdvertisersTableProps {
   advertisers: Advertiser[];
   isLoading: boolean;
   onAdvertiserUpdate: (id: string, active: boolean) => void;
+  onAdvertiserEdit: () => void;
+  onAdvertiserDelete: () => void;
 }
 
 export function AdvertisersTable({
   advertisers,
   isLoading,
   onAdvertiserUpdate,
+  onAdvertiserEdit,
+  onAdvertiserDelete,
 }: AdvertisersTableProps) {
   if (isLoading) {
     return (
@@ -80,14 +85,16 @@ export function AdvertisersTable({
             <TableCell>
               {new Date(advertiser.created_at).toLocaleDateString()}
             </TableCell>
-            <TableCell className="text-right">
+            <TableCell>
               <div className="flex justify-end gap-2">
-                <Button variant="outline" size="icon">
-                  <Pencil className="size-4" />
-                </Button>
-                <Button variant="outline" size="icon">
-                  <Trash2 className="size-4 text-red-500" />
-                </Button>
+                <EditAdvertiserDialog
+                  advertiser={advertiser}
+                  onAdvertiserUpdate={onAdvertiserEdit}
+                />
+                <DeleteAdvertiserDialog
+                  advertiser={advertiser}
+                  onAdvertiserUpdate={onAdvertiserDelete}
+                />
               </div>
             </TableCell>
           </TableRow>
