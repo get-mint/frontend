@@ -6,8 +6,10 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { LoaderCircle } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Editor from "@monaco-editor/react";
 
 import { createClient } from "@/lib/supabase/client";
+import { MetadataDialog } from "./metadata-dialog";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -41,15 +43,6 @@ const formSchema = z.object({
   network_id: z.string().min(1, "Network is required"),
   currency_id: z.string().min(1, "Currency is required"),
   image_url: z.string().url().optional(),
-  metadata: z.string().optional().refine((val) => {
-    if (!val) return true;
-    try {
-      JSON.parse(val);
-      return true;
-    } catch {
-      return false;
-    }
-  }, "Must be valid JSON"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -71,6 +64,7 @@ export function AddNewAdvertiser() {
   const [networks, setNetworks] = useState<Network[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const supabase = createClient();
+  const [metadata, setMetadata] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,17 +90,20 @@ export function AddNewAdvertiser() {
       network_id: "",
       currency_id: "",
       image_url: "",
-      metadata: "",
     },
   });
 
   const onSubmit = async (values: FormValues) => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.from("advertisers").insert([values]);
+      const { error } = await supabase.from("advertisers").insert([{
+        ...values,
+        metadata: metadata ? JSON.parse(metadata) : null,
+      }]);
       if (error) throw error;
       setOpen(false);
       form.reset();
+      setMetadata("");
     } catch (error) {
       console.error("Error adding advertiser:", error);
     } finally {
@@ -228,23 +225,23 @@ export function AddNewAdvertiser() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="metadata"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Metadata (JSON)</FormLabel>
-                  <FormControl>
-                    <textarea
-                      className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                      placeholder='{"key": "value"}'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex items-center justify-between">
+              <FormLabel>Metadata</FormLabel>
+              <MetadataDialog
+                advertiser={{
+                  id: "new",
+                  name: "",
+                  domain: "",
+                  metadata: metadata ? JSON.parse(metadata) : null,
+                } as any}
+                onMetadataUpdate={(value) => setMetadata(value)}
+                trigger={
+                  <Button variant="outline" size="sm">
+                    {metadata ? "Edit Metadata" : "Add Metadata"}
+                  </Button>
+                }
+              />
+            </div>
             <div className="flex justify-end gap-2">
               <Button
                 type="button"

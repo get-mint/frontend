@@ -5,9 +5,11 @@ import { useForm } from "react-hook-form";
 import { LoaderCircle, Pencil } from "lucide-react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Editor from "@monaco-editor/react";
 
 import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/types/supabase";
+import { MetadataDialog } from "./metadata-dialog";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -41,15 +43,6 @@ const formSchema = z.object({
   network_id: z.string().min(1, "Network is required"),
   currency_id: z.string().min(1, "Currency is required"),
   image_url: z.string().url().optional(),
-  metadata: z.string().optional().refine((val) => {
-    if (!val) return true;
-    try {
-      JSON.parse(val);
-      return true;
-    } catch {
-      return false;
-    }
-  }, "Must be valid JSON"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -80,6 +73,9 @@ export function EditAdvertiserDialog({
   const [isLoading, setIsLoading] = useState(false);
   const [networks, setNetworks] = useState<Network[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
+  const [localMetadata, setLocalMetadata] = useState<string | null>(
+    advertiser.metadata ? JSON.stringify(advertiser.metadata, null, 2) : null
+  );
   const supabase = createClient();
 
   useEffect(() => {
@@ -106,7 +102,6 @@ export function EditAdvertiserDialog({
       network_id: advertiser.network_id || "",
       currency_id: advertiser.currency_id || "",
       image_url: advertiser.image_url || "",
-      metadata: advertiser.metadata ? JSON.stringify(advertiser.metadata, null, 2) : "",
     },
   });
 
@@ -115,7 +110,10 @@ export function EditAdvertiserDialog({
     try {
       const { error } = await supabase
         .from("advertisers")
-        .update(values)
+        .update({
+          ...values,
+          metadata: localMetadata ? JSON.parse(localMetadata) : null,
+        })
         .eq("id", advertiser.id);
 
       if (error) throw error;
@@ -244,23 +242,21 @@ export function EditAdvertiserDialog({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="metadata"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Metadata (JSON)</FormLabel>
-                  <FormControl>
-                    <textarea
-                      className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                      placeholder='{"key": "value"}'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex items-center justify-between">
+              <FormLabel>Metadata</FormLabel>
+              <MetadataDialog
+                advertiser={{
+                  ...advertiser,
+                  metadata: localMetadata ? JSON.parse(localMetadata) : null,
+                }}
+                onMetadataUpdate={setLocalMetadata}
+                trigger={
+                  <Button variant="outline" size="sm">
+                    {localMetadata ? "Edit Metadata" : "Add Metadata"}
+                  </Button>
+                }
+              />
+            </div>
             <div className="flex justify-end gap-2">
               <Button
                 type="button"
