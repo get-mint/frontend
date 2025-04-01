@@ -36,43 +36,43 @@ export default function AdvertisersPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    const fetchAdvertisers = async () => {
-      setIsLoading(true);
-      const supabase = createClient();
+  const fetchAdvertisers = async () => {
+    setIsLoading(true);
+    const supabase = createClient();
 
-      const start = (currentPage - 1) * ITEMS_PER_PAGE;
-      const end = start + ITEMS_PER_PAGE - 1;
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE - 1;
 
-      let query = supabase.from("advertisers").select(
-        `
-          *,
-          network: networks(name),
-          currency: currencies(acronym)
-        `,
-        { count: "exact" }
+    let query = supabase.from("advertisers").select(
+      `
+        *,
+        network: networks(name),
+        currency: currencies(acronym)
+      `,
+      { count: "exact" }
+    );
+
+    if (searchQuery) {
+      query = query.or(
+        `name.ilike.%${searchQuery}%,domain.ilike.%${searchQuery}%`
       );
+    }
 
-      if (searchQuery) {
-        query = query.or(
-          `name.ilike.%${searchQuery}%,domain.ilike.%${searchQuery}%`
-        );
-      }
+    const { data, count, error } = await query
+      .range(start, end)
+      .order("created_at", { ascending: false });
 
-      const { data, count, error } = await query
-        .range(start, end)
-        .order("created_at", { ascending: false });
+    if (error) {
+      console.error("Error fetching advertisers:", error);
+      return;
+    }
 
-      if (error) {
-        console.error("Error fetching advertisers:", error);
-        return;
-      }
+    setAdvertisers(data || []);
+    setTotalPages(Math.ceil((count || 0) / ITEMS_PER_PAGE));
+    setIsLoading(false);
+  };
 
-      setAdvertisers(data || []);
-      setTotalPages(Math.ceil((count || 0) / ITEMS_PER_PAGE));
-      setIsLoading(false);
-    };
-
+  useEffect(() => {
     if (isAuthenticated) {
       fetchAdvertisers();
     }
