@@ -36,6 +36,7 @@ export type Database = {
     Tables: {
       advertisers: {
         Row: {
+          active: boolean
           created_at: string
           currency_id: string | null
           domain: string
@@ -47,6 +48,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          active?: boolean
           created_at?: string
           currency_id?: string | null
           domain: string
@@ -58,6 +60,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          active?: boolean
           created_at?: string
           currency_id?: string | null
           domain?: string

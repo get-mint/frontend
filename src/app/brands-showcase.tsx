@@ -51,6 +51,7 @@ export function BrandsShowcase() {
         .select("*")
         .neq("image_url", null)
         .neq("image_url", "")
+        .eq("active", true)
         .limit(10);
 
       if (error) {
@@ -70,7 +71,7 @@ export function BrandsShowcase() {
 
   const skeletonRow = Array(5).fill(null);
 
-  return (
+  return !isLoading && brands.length < 10 ? null : (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
       <Marquee pauseOnHover className="[--duration:20s]">
         {isLoading
