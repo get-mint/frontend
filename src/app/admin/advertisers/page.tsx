@@ -1,18 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { LoaderCircle, Pencil, Trash2, Search } from "lucide-react";
+import { Search } from "lucide-react";
+
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/lib/hooks/use-auth";
+
 import { Database } from "@/types/supabase";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+
 import {
   Card,
   CardHeader,
@@ -20,18 +15,11 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
-import { AddNewAdvertiser } from "./add-new-advertiser";
+
+import { AddNewAdvertiser } from "./add-dialog";
+import { AdvertisersTable } from "./table";
+import { AdvertisersPagination } from "./pagination";
 
 type Advertiser = Database["public"]["Tables"]["advertisers"]["Row"] & {
   network?: { name: string };
@@ -56,16 +44,19 @@ export default function AdvertisersPage() {
       const start = (currentPage - 1) * ITEMS_PER_PAGE;
       const end = start + ITEMS_PER_PAGE - 1;
 
-      let query = supabase
-        .from("advertisers")
-        .select(`
+      let query = supabase.from("advertisers").select(
+        `
           *,
           network: networks(name),
           currency: currencies(acronym)
-        `, { count: "exact" });
+        `,
+        { count: "exact" }
+      );
 
       if (searchQuery) {
-        query = query.or(`name.ilike.%${searchQuery}%,domain.ilike.%${searchQuery}%`);
+        query = query.or(
+          `name.ilike.%${searchQuery}%,domain.ilike.%${searchQuery}%`
+        );
       }
 
       const { data, count, error } = await query
@@ -139,103 +130,20 @@ export default function AdvertisersPage() {
             </div>
           </div>
 
-          {isLoading ? (
-            <div className="flex justify-center py-8">
-              <LoaderCircle className="animate-spin size-8" />
-            </div>
-          ) : (
-            <div className="space-y-4">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Image</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Domain</TableHead>
-                    <TableHead>Network</TableHead>
-                    <TableHead>Currency</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Created</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {advertisers.map((advertiser) => (
-                    <TableRow key={advertiser.id}>
-                      <TableCell>
-                        {advertiser.image_url && (
-                          <img
-                            src={advertiser.image_url}
-                            alt={advertiser.name}
-                            className="h-8 w-auto object-contain"
-                          />
-                        )}
-                      </TableCell>
-                      <TableCell className="font-medium">
-                        {advertiser.name}
-                      </TableCell>
-                      <TableCell>{advertiser.domain}</TableCell>
-                      <TableCell>{advertiser.network?.name || "N/A"}</TableCell>
-                      <TableCell>{advertiser.currency?.acronym || "N/A"}</TableCell>
-                      <TableCell>
-                        <Switch
-                          checked={advertiser.active}
-                          onCheckedChange={() =>
-                            handleToggleActive(advertiser.id, advertiser.active)
-                          }
-                        />
-                      </TableCell>
-                      <TableCell>
-                        {new Date(advertiser.created_at).toLocaleDateString()}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex justify-end gap-2">
-                          <Button variant="outline" size="icon">
-                            <Pencil className="size-4" />
-                          </Button>
-                          <Button variant="outline" size="icon">
-                            <Trash2 className="size-4 text-red-500" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious
-                      onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                      className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
-                    />
-                  </PaginationItem>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                    (page) => (
-                      <PaginationItem key={page}>
-                        <PaginationLink
-                          onClick={() => setCurrentPage(page)}
-                          isActive={currentPage === page}
-                        >
-                          {page}
-                        </PaginationLink>
-                      </PaginationItem>
-                    )
-                  )}
-                  <PaginationItem>
-                    <PaginationNext
-                      onClick={() =>
-                        setCurrentPage((p) => Math.min(totalPages, p + 1))
-                      }
-                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
-                    />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </div>
-          )}
+          <div className="space-y-4">
+            <AdvertisersTable
+              advertisers={advertisers}
+              isLoading={isLoading}
+              onAdvertiserUpdate={handleToggleActive}
+            />
+            <AdvertisersPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </div>
         </CardContent>
       </Card>
     </div>
   );
-} 
+}

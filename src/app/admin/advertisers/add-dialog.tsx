@@ -1,6 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+import * as z from "zod";
+import { LoaderCircle } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { createClient } from "@/lib/supabase/client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -26,11 +34,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { createClient } from "@/lib/supabase/client";
-import { LoaderCircle } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -94,7 +97,6 @@ export function AddNewAdvertiser() {
       if (error) throw error;
       setOpen(false);
       form.reset();
-      // You might want to trigger a refresh of the parent component here
     } catch (error) {
       console.error("Error adding advertiser:", error);
     } finally {
@@ -149,7 +151,10 @@ export function AddNewAdvertiser() {
                 <FormItem>
                   <FormLabel>Network</FormLabel>
                   <FormControl>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select a network" />
                       </SelectTrigger>
@@ -173,13 +178,20 @@ export function AddNewAdvertiser() {
                 <FormItem>
                   <FormLabel>Currency</FormLabel>
                   <FormControl>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select a currency" />
                       </SelectTrigger>
                       <SelectContent>
                         {currencies.map((currency) => (
-                          <SelectItem key={currency.id} value={currency.id} className="text-foreground">
+                          <SelectItem
+                            key={currency.id}
+                            value={currency.id}
+                            className="text-foreground"
+                          >
                             {currency.name} ({currency.acronym})
                           </SelectItem>
                         ))}
@@ -197,7 +209,10 @@ export function AddNewAdvertiser() {
                 <FormItem>
                   <FormLabel>Image URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://example.com/image.png" {...field} />
+                    <Input
+                      placeholder="https://example.com/image.png"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -212,7 +227,9 @@ export function AddNewAdvertiser() {
                 Cancel
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+                {isLoading && (
+                  <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Add Advertiser
               </Button>
             </div>
@@ -221,4 +238,4 @@ export function AddNewAdvertiser() {
       </DialogContent>
     </Dialog>
   );
-} 
+}
