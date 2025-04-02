@@ -1,7 +1,6 @@
 "use client";
 
 import { Settings } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,16 +8,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { SidebarMenuButton } from "@/components/ui/sidebar";
+import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export function SettingsDialog() {
+  const pathname = usePathname();
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9">
+        <SidebarMenuButton
+          className="hover:bg-primary/10 data-[active=true]:bg-primary/20 data-[active=true]:text-primary py-5 px-4 text-lg transition-all duration-150 cursor-pointer"
+          data-active={pathname === "/settings"}
+        >
           <Settings className="h-5 w-5" />
-          <span className="sr-only">Open settings</span>
-        </Button>
+          <span className="text-base">Settings</span>
+        </SidebarMenuButton>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

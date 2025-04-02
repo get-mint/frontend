@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-import { Leaf, LucideIcon } from "lucide-react";
+import { Leaf, LucideIcon, Settings } from "lucide-react";
+import type { ReactElement } from "react";
 
 import {
   Sidebar,
@@ -22,6 +22,7 @@ interface SidebarItem {
   title: string;
   url: string;
   icon: LucideIcon;
+  component?: () => ReactElement;
 }
 
 export function AppSidebar({
@@ -35,6 +36,16 @@ export function AppSidebar({
 }) {
   const pathname = usePathname();
 
+  const allItems = [
+    ...items,
+    {
+      title: "Settings",
+      url: "/settings",
+      icon: Settings,
+      component: SettingsDialog,
+    },
+  ];
+
   return (
     <Sidebar collapsible="icon" variant="sidebar">
       <SidebarHeader>
@@ -47,9 +58,6 @@ export function AppSidebar({
               </SidebarMenuButton>
             </Link>
           </SidebarMenuItem>
-          <SidebarMenuItem className="ml-auto">
-            <SettingsDialog />
-          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
 
@@ -58,17 +66,21 @@ export function AppSidebar({
           <SidebarGroupLabel className="text-sm">Main</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {allItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <Link href={item.url} passHref legacyBehavior>
-                    <SidebarMenuButton
-                      className="hover:bg-primary/10 data-[active=true]:bg-primary/20 data-[active=true]:text-primary py-5 px-4 text-lg transition-all duration-150 cursor-pointer"
-                      data-active={pathname === item.url}
-                    >
-                      <item.icon className="h-5 w-5" />
-                      <span className="text-base">{item.title}</span>
-                    </SidebarMenuButton>
-                  </Link>
+                  {item.component ? (
+                    <item.component />
+                  ) : (
+                    <Link href={item.url} passHref legacyBehavior>
+                      <SidebarMenuButton
+                        className="hover:bg-primary/10 data-[active=true]:bg-primary/20 data-[active=true]:text-primary py-5 px-4 text-lg transition-all duration-150 cursor-pointer"
+                        data-active={pathname === item.url}
+                      >
+                        <item.icon className="h-5 w-5" />
+                        <span className="text-base">{item.title}</span>
+                      </SidebarMenuButton>
+                    </Link>
+                  )}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
