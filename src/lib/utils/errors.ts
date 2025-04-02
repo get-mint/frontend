@@ -45,18 +45,19 @@ export class ConflictError extends AppError {
 }
 
 export function handleApiError(error: unknown) {
-  // Create a detailed error log object
   const errorLog = {
     timestamp: new Date().toISOString(),
-    error: error instanceof Error ? {
-      name: error.name,
-      message: error.message,
-      stack: error.stack,
-    } : error,
+    error:
+      error instanceof Error
+        ? {
+            name: error.name,
+            message: error.message,
+            stack: error.stack,
+          }
+        : error,
     type: error instanceof AppError ? error.constructor.name : typeof error,
   };
 
-  // Log the detailed error information
   console.error("API Error Details:", JSON.stringify(errorLog, null, 2));
 
   if (error instanceof AppError) {
