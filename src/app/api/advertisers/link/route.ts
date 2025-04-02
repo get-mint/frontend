@@ -50,21 +50,35 @@ export async function POST(request: Request) {
     const trackingId = sha256(email.trim().toLowerCase());
 
     const baseUrl = new URL(request.url).origin;
-    const response = await fetch(`${baseUrl}/api/networks/rakuten-advertising/link`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        url: url,
-        advertiser_id: advertiser.metadata.mid,
-        u1: trackingId,
-      }),
-    });
+    const response = await fetch(
+      `${baseUrl}/api/networks/rakuten-advertising/link`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          url: url,
+          advertiser_id: advertiser.metadata.mid,
+          u1: trackingId,
+        }),
+      }
+    );
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message || "Failed to create deep link");
+      const errorDetails = {
+        status: response.status,
+        statusText: response.statusText,
+        error,
+        url: url,
+        advertiserId: advertiser.metadata.mid,
+        timestamp: new Date().toISOString(),
+      };
+      console.error("Rakuten Link Creation Error:", errorDetails);
+      throw new Error(
+        `Failed to create deep link: ${error.message || response.statusText}`
+      );
     }
 
     const data = await response.json();
