@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Info, Leaf } from "lucide-react";
+import { ArrowRight, Info, Leaf, Loader2 } from "lucide-react";
+
+import { createClient } from "@/lib/supabase/client";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,12 +17,6 @@ import {
 } from "@/components/ui/hover-card";
 
 const stats = [
-  {
-    value: "100+",
-    label: "Stores",
-    description:
-      "We work with over 100+ stores to bring you the best cashback deals.",
-  },
   {
     value: "5$",
     label: "Minimum Payout",
@@ -87,8 +83,55 @@ function ParticleField() {
   );
 }
 
+function formatNumber(n: number): { display: string; description: string } {
+  return {
+    display: n < 10 ? `${n}+` : `${n}`,
+    description: `We work with ${n} stores to bring you the best cashback deals.`,
+  };
+}
+
 export function Hero() {
   const [openCard, setOpenCard] = useState<string | null>(null);
+  const [advertiserCount, setAdvertiserCount] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAdvertiserCount = async () => {
+      setIsLoading(true);
+      const supabase = createClient();
+      const { count, error } = await supabase
+        .from("advertisers")
+        .select("*", { count: "exact", head: true })
+        .eq("active", true);
+
+      if (error) {
+        console.error("Error fetching advertiser count:", error);
+        return;
+      }
+
+      setAdvertiserCount(count);
+      setIsLoading(false);
+    };
+
+    fetchAdvertiserCount();
+  }, []);
+
+  const formattedCount = advertiserCount ? formatNumber(advertiserCount) : { display: "", description: "We work with stores to bring you the best cashback deals." };
+
+  const displayStats = [
+    {
+      value: isLoading ? (
+        <div className="text-2xl sm:text-3xl font-bold">
+          <Loader2 className="inline-block animate-spin" />
+        </div>
+      ) : (
+        formattedCount.display
+      ),
+      label: "Stores",
+      description: formattedCount.description,
+    },
+    ...stats,
+  ];
 
   return (
     <div className="relative min-h-screen flex items-center justify-center">
@@ -147,7 +190,7 @@ export function Hero() {
             </div>
 
             <div className="flex flex-row gap-4 sm:gap-8 mb-6 justify-center">
-              {stats.map((stat) => (
+              {displayStats.map((stat) => (
                 <HoverCard key={stat.label} openDelay={0} closeDelay={0}>
                   <HoverCardTrigger asChild>
                     <Card className="relative animate-in fade-in slide-in-from-top-4 duration-700 bg-card/5 backdrop-blur-xl border-border flex-1 max-w-[200px] group cursor-pointer">
