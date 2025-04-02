@@ -22,6 +22,8 @@ export async function POST(request: Request) {
 
     const supabase = createAdminClient();
 
+    // Check if the domain is already in the database
+
     const { data: advertiser, error } = await supabase
       .from("advertisers")
       .select(
