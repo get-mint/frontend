@@ -20,9 +20,7 @@ function isTransactionApproved(transaction: any): boolean {
 function isTransactionPaid(transaction: any): boolean {
   // Check if the transaction has been paid by Rakuten
   return (
-    transaction.commission_status === "paid" ||
-    transaction.status === "paid" ||
-    (transaction.commissions > 0 && transaction.transaction_type === "batched")
+    transaction.commission_status === "paid" || transaction.status === "paid"
   );
 }
 
