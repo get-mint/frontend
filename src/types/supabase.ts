@@ -201,21 +201,72 @@ export type Database = {
       }
       user_transactions: {
         Row: {
+          advertiser_id: string
           created_at: string
+          currency_id: string | null
           id: string
+          metadata: Json | null
+          network_id: string
+          sale_amount: number
+          total_commission: number
+          tracking_id: string
+          transaction_status: Database["public"]["Enums"]["transaction_status"]
+          updated_at: string | null
+          user_commission_reward_pct: number
           user_id: string | null
         }
         Insert: {
+          advertiser_id: string
           created_at?: string
+          currency_id?: string | null
           id?: string
+          metadata?: Json | null
+          network_id: string
+          sale_amount: number
+          total_commission?: number
+          tracking_id: string
+          transaction_status?: Database["public"]["Enums"]["transaction_status"]
+          updated_at?: string | null
+          user_commission_reward_pct?: number
           user_id?: string | null
         }
         Update: {
+          advertiser_id?: string
           created_at?: string
+          currency_id?: string | null
           id?: string
+          metadata?: Json | null
+          network_id?: string
+          sale_amount?: number
+          total_commission?: number
+          tracking_id?: string
+          transaction_status?: Database["public"]["Enums"]["transaction_status"]
+          updated_at?: string | null
+          user_commission_reward_pct?: number
           user_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "user_transactions_advertiser_id_fkey"
+            columns: ["advertiser_id"]
+            isOneToOne: false
+            referencedRelation: "advertisers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_transactions_currency_id_fkey"
+            columns: ["currency_id"]
+            isOneToOne: false
+            referencedRelation: "currencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_transactions_network_id_fkey"
+            columns: ["network_id"]
+            isOneToOne: false
+            referencedRelation: "networks"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "user_transactions_user_id_fkey"
             columns: ["user_id"]
@@ -259,7 +310,12 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      transaction_status:
+        | "PENDING"
+        | "APPROVED"
+        | "DECLINED"
+        | "EXPIRED"
+        | "PAID"
     }
     CompositeTypes: {
       [_ in never]: never
