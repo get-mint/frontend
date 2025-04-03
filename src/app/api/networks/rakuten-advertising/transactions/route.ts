@@ -4,6 +4,18 @@ import { createAdminClient } from "@/lib/supabase/server/server";
 import { getRakutenToken } from "../token";
 import { handleApiError } from "@/lib/utils/errors";
 
+// Rakuten transaction statuses mapping
+const RAKUTEN_STATUS_MAP = {
+  "realtime": "PENDING", // Real-time transactions are initially pending
+  "batched": "PENDING",  // Batched transactions are initially pending
+} as const;
+
+// Helper to determine if a transaction is approved
+function isTransactionApproved(transaction: any): boolean {
+  // If commissions > 0, it's approved
+  return parseFloat(transaction.commissions) > 0;
+}
+
 export async function GET(request: Request) {
   try {
     const supabase = createAdminClient();
@@ -53,6 +65,7 @@ export async function GET(request: Request) {
     const data = await response.json();
     const transactions = data.transactions || [];
 
+    // First, process all transactions
     for (const transaction of transactions) {
       // Find user by tracking_id (u1)
       const { data: user, error: userError } = await supabase
@@ -86,25 +99,32 @@ export async function GET(request: Request) {
         continue;
       }
 
+      // Determine transaction status based on Rakuten's data
+      const transactionStatus = isTransactionApproved(transaction) ? "APPROVED" : "PENDING";
+
       // Insert or update transaction
       const { error: upsertError } = await supabase
         .from("user_transactions")
         .upsert(
           {
             network_id: network.id,
-            user_id: user?.id || null,
+            user_id: user?.id || null, // Will be null if user doesn't exist yet
             advertiser_id: advertiser?.id,
             currency_id: advertiser?.currency_id,
             tracking_id: transaction.u1,
             sale_amount: parseFloat(transaction.sale_amount),
-            total_commission: parseFloat(transaction.commission),
-            transaction_status: transaction.status.toUpperCase(),
+            total_commission: parseFloat(transaction.commissions),
+            transaction_status: transactionStatus,
             metadata: {
-              network_transaction_id: transaction.transaction_id,
+              network_transaction_id: transaction.etransaction_id,
               product_name: transaction.product_name,
               order_id: transaction.order_id,
               process_date: transaction.process_date,
               transaction_date: transaction.transaction_date,
+              transaction_type: transaction.transaction_type,
+              currency: transaction.currency,
+              is_event: transaction.is_event,
+              commissions_list_id: transaction.commissions_list_id
             },
           },
           {
@@ -114,9 +134,44 @@ export async function GET(request: Request) {
 
       if (upsertError) {
         console.error(
-          `Error upserting transaction ${transaction.transaction_id}:`,
+          `Error upserting transaction ${transaction.etransaction_id}:`,
           upsertError
         );
+      }
+    }
+
+    // Second, check for any transactions that were previously without a user but now have one
+    const { data: orphanedTransactions, error: orphanedError } = await supabase
+      .from("user_transactions")
+      .select("*")
+      .is("user_id", null)
+      .not("tracking_id", "is", null);
+
+    if (orphanedError) {
+      console.error("Error fetching orphaned transactions:", orphanedError);
+    } else if (orphanedTransactions && orphanedTransactions.length > 0) {
+      // Try to match these transactions with newly registered users
+      for (const transaction of orphanedTransactions) {
+        const { data: user, error: userError } = await supabase
+          .from("users")
+          .select("id")
+          .eq("tracking_id", transaction.tracking_id)
+          .single();
+
+        if (!userError && user) {
+          // Update transaction with user_id
+          const { error: updateError } = await supabase
+            .from("user_transactions")
+            .update({ user_id: user.id })
+            .eq("id", transaction.id);
+
+          if (updateError) {
+            console.error(
+              `Error updating orphaned transaction ${transaction.id}:`,
+              updateError
+            );
+          }
+        }
       }
     }
 
@@ -133,6 +188,7 @@ export async function GET(request: Request) {
     return NextResponse.json({
       success: true,
       processed: transactions.length,
+      orphanedUpdated: orphanedTransactions?.length || 0,
     });
   } catch (error) {
     return handleApiError(error);
