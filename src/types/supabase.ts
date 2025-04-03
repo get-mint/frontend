@@ -117,24 +117,30 @@ export type Database = {
       }
       networks: {
         Row: {
+          active: boolean
           created_at: string
           domain: string | null
           id: string
           name: string
+          transactions_last_updated_at: string | null
           updated_at: string
         }
         Insert: {
+          active?: boolean
           created_at?: string
           domain?: string | null
           id?: string
           name: string
+          transactions_last_updated_at?: string | null
           updated_at?: string
         }
         Update: {
+          active?: boolean
           created_at?: string
           domain?: string | null
           id?: string
           name?: string
+          transactions_last_updated_at?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -186,6 +192,32 @@ export type Database = {
           },
           {
             foreignKeyName: "user_roles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_transactions: {
+        Row: {
+          created_at: string
+          id: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_transactions_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
