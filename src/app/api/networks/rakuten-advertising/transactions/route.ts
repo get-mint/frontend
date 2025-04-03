@@ -6,14 +6,24 @@ import { handleApiError } from "@/lib/utils/errors";
 
 // Rakuten transaction statuses mapping
 const RAKUTEN_STATUS_MAP = {
-  "realtime": "PENDING", // Real-time transactions are initially pending
-  "batched": "PENDING",  // Batched transactions are initially pending
+  realtime: "PENDING", // Real-time transactions are initially pending
+  batched: "PENDING", // Batched transactions are initially pending
 } as const;
 
 // Helper to determine if a transaction is approved
 function isTransactionApproved(transaction: any): boolean {
   // If commissions > 0, it's approved
   return parseFloat(transaction.commissions) > 0;
+}
+
+// Helper to determine if a transaction is paid
+function isTransactionPaid(transaction: any): boolean {
+  // Check if the transaction has been paid by Rakuten
+  return (
+    transaction.commission_status === "paid" ||
+    transaction.status === "paid" ||
+    (transaction.commissions > 0 && transaction.transaction_type === "batched")
+  );
 }
 
 export async function GET(request: Request) {
@@ -99,8 +109,25 @@ export async function GET(request: Request) {
         continue;
       }
 
+      // Get existing transaction if it exists
+      const { data: existingTransaction } = await supabase
+        .from("user_transactions")
+        .select("*")
+        .eq("network_id", network.id)
+        .eq("tracking_id", transaction.u1)
+        .eq("metadata->>network_transaction_id", transaction.etransaction_id)
+        .single();
+
       // Determine transaction status based on Rakuten's data
-      const transactionStatus = isTransactionApproved(transaction) ? "APPROVED" : "PENDING";
+      let transactionStatus =
+        existingTransaction?.transaction_status || "PENDING";
+
+      // Update status based on commission and payment status
+      if (isTransactionPaid(transaction)) {
+        transactionStatus = "PAID";
+      } else if (isTransactionApproved(transaction)) {
+        transactionStatus = "APPROVED";
+      }
 
       // Insert or update transaction
       const { error: upsertError } = await supabase
@@ -124,7 +151,10 @@ export async function GET(request: Request) {
               transaction_type: transaction.transaction_type,
               currency: transaction.currency,
               is_event: transaction.is_event,
-              commissions_list_id: transaction.commissions_list_id
+              commissions_list_id: transaction.commissions_list_id,
+              last_status_update: now.toISOString(),
+              previous_status:
+                existingTransaction?.transaction_status || "PENDING",
             },
           },
           {
